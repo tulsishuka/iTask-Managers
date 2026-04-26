@@ -3,6 +3,7 @@ import authRouter from "./routes/authRouter";
 import paymentRoutes from "./routes/paymentRoutes";
 import userRoutes from "./routes/user.routes";
 import charityRoutes from "./routes/charityRoutes";
+import scoreRoutes from "./routes/scoreRoutes";
 import cors from "cors";
 
 const app = express();
@@ -14,5 +15,6 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/charity", charityRoutes);
+app.use("/api/score", scoreRoutes);
 
 export default app;
