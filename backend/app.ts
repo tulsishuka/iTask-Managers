@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.routes";
 import charityRoutes from "./routes/charityRoutes";
 import scoreRoutes from "./routes/scoreRoutes";
 import drawRoutes from "./routes/drawRoutes";
+import prizeRoutes from "./routes/prizeRoutes";
 
 import cors from "cors";
 
@@ -19,5 +20,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/charity", charityRoutes);
 app.use("/api/score", scoreRoutes);
 app.use("/api/draw", drawRoutes);
+app.use("/api/prize", prizeRoutes);
 
 export default app;

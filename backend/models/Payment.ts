@@ -1,26 +1,18 @@
-// import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-// const PaymentSchema = new mongoose.Schema({
-//   userId: String,
-//   orderId: String,
-//   paymentId: String,
-//   amount: Number,
-//   status: {
-//     type: String,
-//     default: "created", // created | paid | failed
-//   },
-//   plan: String,
-//   createdAt: {
-//     type: Date,
-//     default: Date.now,
-//   },
-// });
+// ✅ 1. DEFINE TYPE
+export interface IPayment extends Document {
+  userId: mongoose.Types.ObjectId;
+  orderId: string;
+  paymentId?: string;
+  amount: number;
+  status: "created" | "paid" | "failed";
+  plan: "monthly" | "yearly";
+  createdAt: Date;
+}
 
-// export default mongoose.model("Payment", PaymentSchema);
-
-import mongoose from "mongoose";
-
-const PaymentSchema = new mongoose.Schema({
+// ✅ 2. ADD TYPE TO SCHEMA
+const PaymentSchema = new mongoose.Schema<IPayment>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -31,7 +23,7 @@ const PaymentSchema = new mongoose.Schema({
 
   paymentId: String,
 
-  amount: Number,
+  amount: { type: Number, required: true }, // ✅ make required
 
   status: {
     type: String,
@@ -42,6 +34,7 @@ const PaymentSchema = new mongoose.Schema({
   plan: {
     type: String,
     enum: ["monthly", "yearly"],
+    required: true,
   },
 
   createdAt: {
@@ -50,4 +43,5 @@ const PaymentSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Payment", PaymentSchema);
+// ✅ 3. ADD TYPE TO MODEL
+export default mongoose.model<IPayment>("Payment", PaymentSchema);
