@@ -1,13 +1,14 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Charity = () => {
   const [charities, setCharities] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const navigate = useNavigate();
 
+  // eslint-disable-next-line no-unused-vars
   const token = localStorage.getItem("token");
 
   // 🔥 FETCH CHARITIES
@@ -33,46 +34,99 @@ const Charity = () => {
     setSaved(false);
   };
 
-  // ❤️ SAVE CHARITY TO USER
-  const saveCharity = async () => {
-    try {
-      if (!token) {
-        alert("Please login first");
-        return;
-      }
+const saveCharity = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-      if (!selected) {
-        alert("Select a charity first");
-        return;
-      }
+    console.log("🔐 TOKEN:", token);
 
-      setLoading(true);
-
-      const res = await axios.post(
-        "http://localhost:5000/api/charity/select",
-        {
-          charityId: selected._id,
-          percentage: selected.percentage, // important
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log("SAVE RESPONSE:", res.data);
-
-      setSaved(true);
-      alert(res.data.message || "Charity selected successfully ❤️");
-
-    } catch (err) {
-      console.log("Save error:", err);
-      alert("Failed to save charity");
-    } finally {
-      setLoading(false);
+    if (!token) {
+      alert("Please login first");
+      return;
     }
-  };
+
+    if (!selected) {
+      alert("Select a charity first");
+      return;
+    }
+
+    setLoading(true);
+
+    const res = await axios.post(
+      "http://localhost:5000/api/charity/select",
+      {
+        charityId: selected._id,
+        percentage: selected.percentage || 0,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ MUST BE EXACT
+        },
+      }
+    );
+
+    console.log("✅ SAVE RESPONSE:", res.data);
+
+    setSaved(true);
+    alert("Charity saved successfully ❤️");
+
+    setTimeout(() => {
+      navigate("/dashboard", { replace: true });
+    }, 500);
+
+  } catch (err) {
+    console.log("❌ Save error:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Failed to save charity");
+  } finally {
+    setLoading(false);
+  }
+};
+
+//   const saveCharity = async () => {
+//   try {
+//     if (!token) {
+//       alert("Please login first");
+//       return;
+//     }
+
+//     if (!selected) {
+//       alert("Select a charity first");
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     const res = await axios.post(
+//       "http://localhost:5000/api/charity/select",
+//       {
+//         charityId: selected._id,
+//         percentage: selected.percentage,
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     );
+
+
+//     console.log("SAVE RESPONSE:", res.data);
+
+//     setSaved(true);
+//     alert(res.data.message || "Charity selected successfully ❤️");
+
+//     // ✅ 🔥 REDIRECT TO DASHBOARD
+//     setTimeout(() => {
+//       navigate("/Subscription", { replace: true });
+//     }, 500);
+
+//   } catch (err) {
+//     console.log("Save error:", err);
+//     alert("Failed to save charity");
+//   } finally {
+//     setLoading(false);
+//   }
+// };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
