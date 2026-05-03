@@ -1,19 +1,20 @@
 import express from "express";
-import {  getCharities, selectCharity } from "../controllers/charityController";
-import { checkSubscription } from "../middlewares/checkSubscription";
+import {  selectCharity } from "../controllers/charityController";
 import { protectedMiddleware } from "../middlewares/authMiddleware";
+import { getCharities } from "../controllers/adminController";
 
 const router = express.Router();
 
 // Public route
 router.get("/", getCharities);
 
-// Protected route (only subscribed users)
+// ✅ FIXED: Only auth required
 router.post(
   "/select",
   protectedMiddleware,
-  checkSubscription,
   selectCharity
 );
+
+
 
 export default router;

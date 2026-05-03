@@ -47,4 +47,4 @@ const charitySchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Charity", charitySchema);
+export default mongoose.model("Charity", charitySchema); 

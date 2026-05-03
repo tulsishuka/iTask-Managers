@@ -1,129 +1,3 @@
-// import crypto from "crypto";
-// import Payment from "../models/Payment";
-// import { User } from "../models/userModel";
-// import PrizePool from "../models/PrizePool";
-// import CharityDonation from "../models/CharityDonation";
-
-// export const verifyPayment = async (req: any, res: any) => {
-//   try {
-//     const {
-//       razorpay_order_id,
-//       razorpay_payment_id,
-//       razorpay_signature,
-//     } = req.body;
-
-//     // 🔐 VERIFY SIGNATURE
-//     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
-
-//     const expectedSignature = crypto
-//       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET as string)
-//       .update(body)
-//       .digest("hex");
-
-//     if (expectedSignature !== razorpay_signature) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Invalid Signature",
-//       });
-//     }
-
-//     // 💳 UPDATE PAYMENT
-//     const payment = await Payment.findOneAndUpdate(
-//       { orderId: razorpay_order_id },
-//       {
-//         paymentId: razorpay_payment_id,
-//         status: "paid",
-//       },
-//       { new: true }
-//     );
-
-//     if (!payment) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Payment not found",
-//       });
-//     }
-
-//     // 👤 GET USER
-//     const user = await User.findById(payment.userId);
-
-//     if (!user) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "User not found",
-//       });
-//     }
-
-//     // 💰 SPLIT MONEY
-//     const charityPercent = user.donationPercentage || 0;
-
-//     const charityAmount = payment.amount * (charityPercent / 100);
-//     const prizeAmount = payment.amount * 0.8;
-//     const systemAmount = payment.amount - charityAmount - prizeAmount;
-
-//     // 🏆 UPDATE PRIZE POOL
-//     const month = new Date().toLocaleString("default", {
-//       month: "long",
-//       year: "numeric",
-//     });
-
-//     let pool = await PrizePool.findOne({ month });
-
-//     if (!pool) {
-//       pool = await PrizePool.create({
-//         month,
-//         totalAmount: 0,
-//       });
-//     }
-
-//     pool.totalAmount += prizeAmount;
-//     await pool.save();
-
-//     // ❤️ SAVE CHARITY DONATION
-//     if (charityAmount > 0 && user.selectedCharity) {
-//       await CharityDonation.create({
-//         userId: user._id,
-//         charityId: user.selectedCharity,
-//         paymentId: payment.paymentId,
-//         amount: charityAmount,
-//       });
-//     }
-
-//     // 💳 ACTIVATE SUBSCRIPTION
-//     await User.findByIdAndUpdate(user._id, {
-//       subscriptionStatus: "active",
-//       subscriptionPlan: payment.plan,
-//       subscriptionStart: new Date(),
-//       subscriptionEnd: new Date(
-//         Date.now() + 30 * 24 * 60 * 60 * 1000
-//       ),
-//     });
-
-//     return res.json({
-//       success: true,
-//       message: "Payment Verified & Money Distributed Successfully",
-//       breakdown: {
-//         charityAmount,
-//         prizeAmount,
-//         systemAmount,
-//       },
-//     });
-
-//   } catch (err: any) {
-//     return res.status(500).json({
-//       success: false,
-//       error: err.message,
-//     });
-//   }
-// };
-
-
-
-
-
-
-
-
 
 import crypto from "crypto";
 import Payment from "../models/Payment";
@@ -143,33 +17,39 @@ export const verifyPayment = async (req: any, res: any) => {
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET as string)
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
       .update(body)
       .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({
         success: false,
-        message: "Invalid Signature",
+        message: "Invalid signature",
       });
     }
 
-    // 💳 UPDATE PAYMENT (idempotent safe)
-    const payment = await Payment.findOneAndUpdate(
-      { orderId: razorpay_order_id, status: "created" },
-      {
-        paymentId: razorpay_payment_id,
-        status: "paid",
-      },
-      { new: true }
-    );
+    // 🔍 FIND PAYMENT
+    const payment = await Payment.findOne({ orderId: razorpay_order_id });
 
     if (!payment) {
       return res.status(404).json({
         success: false,
-        message: "Payment not found or already processed",
+        message: "Payment not found",
       });
     }
+
+    // 🚫 prevent double processing
+    if (payment.status === "paid") {
+      return res.json({
+        success: true,
+        message: "Already processed",
+      });
+    }
+
+    // 💳 UPDATE PAYMENT FIRST
+    payment.status = "paid";
+    payment.paymentId = razorpay_payment_id;
+    await payment.save();
 
     // 👤 GET USER
     const user = await User.findById(payment.userId);
@@ -181,22 +61,14 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 💰 SPLIT LOGIC
+    // 💰 CALCULATIONS
     const charityPercent = user.donationPercentage || 0;
 
-    const charityAmount = Number(
-      (payment.amount * charityPercent / 100).toFixed(2)
-    );
+    const charityAmount = (payment.amount * charityPercent) / 100;
+    const prizeAmount = payment.amount * 0.8;
+    const systemAmount = payment.amount - charityAmount - prizeAmount;
 
-    const prizeAmount = Number(
-      (payment.amount * 0.8).toFixed(2)
-    );
-
-    const systemAmount = Number(
-      (payment.amount - charityAmount - prizeAmount).toFixed(2)
-    );
-
-    // 🏆 PRIZE POOL (SAFE UPDATE)
+    // 🏆 PRIZE POOL UPDATE
     const month = new Date().toLocaleString("default", {
       month: "long",
       year: "numeric",
@@ -204,41 +76,31 @@ export const verifyPayment = async (req: any, res: any) => {
 
     await PrizePool.findOneAndUpdate(
       { month },
-      {
-        $inc: { totalAmount: prizeAmount },
-      },
+      { $inc: { totalAmount: prizeAmount } },
       { upsert: true, new: true }
     );
 
-    // ❤️ CHARITY DONATION (NO DUPLICATES)
-    if (charityAmount > 0 && user.selectedCharity) {
-      const exists = await CharityDonation.findOne({
-        paymentId: payment.paymentId,
+    // ❤️ CHARITY SAVE (IMPORTANT FIX HERE)
+    if (user.selectedCharity && charityAmount > 0) {
+      await CharityDonation.create({
+        userId: user._id,
+        charityId: user.selectedCharity,
+        paymentId: razorpay_payment_id, // ✅ ALWAYS USE THIS
+        amount: charityAmount,
       });
-
-      if (!exists) {
-        await CharityDonation.create({
-          userId: user._id,
-          charityId: user.selectedCharity,
-          paymentId: payment.paymentId,
-          amount: charityAmount,
-        });
-      }
     }
 
-    // 💳 ACTIVATE SUBSCRIPTION
-    await User.findByIdAndUpdate(user._id, {
-      subscriptionStatus: "active",
-      subscriptionPlan: payment.plan,
-      subscriptionStart: new Date(),
-      subscriptionEnd: new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000
-      ),
-    });
+    // 🔥 ACTIVATE SUBSCRIPTION
+    user.subscriptionStatus = "active";
+    user.subscriptionPlan = payment.plan;
+    user.subscriptionStart = new Date();
+    user.subscriptionEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
+    await user.save();
 
     return res.json({
       success: true,
-      message: "Payment Verified & Distributed Successfully",
+      message: "Payment verified successfully",
       breakdown: {
         charityAmount,
         prizeAmount,
