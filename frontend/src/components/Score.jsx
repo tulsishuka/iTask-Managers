@@ -29,7 +29,7 @@ const addScore = async () => {
       return;
     }
 
-    await fetch("http://localhost:3000/api/score/add", {
+    await fetch("http://localhost:5000/api/score/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
