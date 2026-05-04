@@ -11,15 +11,10 @@ import CharityDonation from "../models/CharityDonation";
 import Score from "../models/Score";
 
 
-/**
- * 📊 ANALYTICS DASHBOARD
- */
 export const getAnalytics = async (req: Request, res: Response) => {
   try {
-    // 👥 Users
     const totalUsers = await User.countDocuments();
 
-    // 💰 Revenue
     const payments = await Payment.find({ status: "paid" });
 
     const totalRevenue = payments.reduce(
@@ -27,10 +22,8 @@ export const getAnalytics = async (req: Request, res: Response) => {
       0
     );
 
-    // 🏆 Prize Pool
     const prizePool = await PrizePool.findOne().sort({ createdAt: -1 });
 
-    // 🎯 Winnings
     const results = await Result.find();
 
     const totalWinnings = results.reduce(
@@ -38,7 +31,6 @@ export const getAnalytics = async (req: Request, res: Response) => {
       0
     );
 
-    // ❤️ REAL CHARITY MONEY
     const donations = await CharityDonation.find();
 
     const charityContribution = donations.reduce(
@@ -63,9 +55,7 @@ export const getAnalytics = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * 👥 GET USERS
- */
+
 export const getUsers = async (req: Request, res: Response) => {
  
 
@@ -81,9 +71,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
 
 
-/**
- * 🔄 UPDATE SUBSCRIPTION
- */
 export const updateUserSubscription = async (req: Request, res: Response) => {
   try {
     const { userId, status } = req.body;
@@ -104,11 +91,7 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * ❤️ CHARITY MANAGEMENT (FIXED)
- */
 
-// ➕ Add Charity
 export const addCharity = async (req: Request, res: Response) => {
   try {
     const { name, description, percentage } = req.body;

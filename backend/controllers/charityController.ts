@@ -50,7 +50,6 @@ export const selectCharity = async (req: AuthRequest, res: Response) => {
 
 
 
-// export const selectCharity = async (req: AuthRequest, res: Response) => {
 //   try {
 //     console.log("🎯 selectCharity HIT");
 

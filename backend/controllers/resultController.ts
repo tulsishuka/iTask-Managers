@@ -5,16 +5,6 @@ import Result from "../models/Result";
 
 // ✅ Get all results (admin)
 export const getAllResults = async (req: Request, res: Response) => {
-  // try {
-  //   const results = await Results.find().sort({ createdAt: -1 });
-
-  //   res.json({
-  //     success: true,
-  //     data: results,
-  //   });
-  // } catch (error) {
-  //   res.status(500).json({ message: "Server error" });
-  // }
 
 
   try {

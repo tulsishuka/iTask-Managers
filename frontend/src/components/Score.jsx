@@ -1,3 +1,118 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+// import React, { useEffect, useState } from "react";
+
+// const Score = () => {
+//   const [scores, setScores] = useState([]);
+//   const [scoreValue, setScoreValue] = useState("");
+//   const token = localStorage.getItem("token");
+
+//   // 🔥 FETCH SCORES
+//   const fetchScores = async () => {
+//     try {
+//       const res = await fetch("http://localhost:5000/api/score", {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+
+//       const result = await res.json();
+//       setScores(result.data || []);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+
+// const addScore = async () => {
+//   try {
+//     if (!scoreValue || scoreValue < 1 || scoreValue > 45) {
+//       alert("Score must be between 1 and 45");
+//       return;
+//     }
+
+//     await fetch("http://localhost:5000/api/score/add", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         value: Number(scoreValue),
+//       }),
+//     }).then(async (res) => {
+//       const data = await res.json();
+
+//       if (!res.ok) {
+//         throw new Error(data.message);
+//       }
+
+//       return data;
+//     });
+
+//     setScoreValue("");
+//     fetchScores();
+
+//   } catch (error) {
+//     alert(error.message || "Something went wrong");
+//   }
+// };
+
+//   useEffect(() => {
+//     // eslint-disable-next-line react-hooks/set-state-in-effect
+//     fetchScores();
+//   }, []);
+
+//   return (
+//     <div className="bg-white p-6 rounded-xl shadow mt-6">
+
+//       <h2 className="font-semibold text-lg mb-4">
+//         🏌️ Last 5 Scores
+//       </h2>
+
+//       {/* INPUT */}
+//       <div className="flex gap-2 mb-4">
+//         <input
+//           type="number"
+//           value={scoreValue}
+//           onChange={(e) => setScoreValue(e.target.value)}
+//           placeholder="Enter score (1-45)"
+//           className="border p-2 rounded w-40"
+//         />
+
+//         <button
+//           onClick={addScore}
+//           className="bg-black text-white px-4 py-2 rounded"
+//         >
+//           Add Score
+//         </button>
+//       </div>
+
+//       {/* LIST */}
+//       <ul>
+//         {scores.length === 0 ? (
+//           <p>No scores yet</p>
+//         ) : (
+//           scores.map((s) => (
+//             <li key={s._id} className="py-1 border-b">
+//               Score: {s.value} |{" "}
+//               {new Date(s.date).toLocaleDateString()}
+//             </li>
+//           ))
+//         )}
+//       </ul>
+
+//     </div>
+//   );
+// };
+
+// export default Score;
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 
 const Score = () => {
@@ -5,7 +120,7 @@ const Score = () => {
   const [scoreValue, setScoreValue] = useState("");
   const token = localStorage.getItem("token");
 
-  // 🔥 FETCH SCORES
+  // FETCH SCORES
   const fetchScores = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/score", {
@@ -21,85 +136,90 @@ const Score = () => {
     }
   };
 
-
-const addScore = async () => {
-  try {
-    if (!scoreValue || scoreValue < 1 || scoreValue > 45) {
-      alert("Score must be between 1 and 45");
-      return;
-    }
-
-    await fetch("http://localhost:5000/api/score/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        value: Number(scoreValue),
-      }),
-    }).then(async (res) => {
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message);
+  // ADD SCORE
+  const addScore = async () => {
+    try {
+      if (!scoreValue || scoreValue < 1 || scoreValue > 45) {
+        alert("Score must be between 1 and 45");
+        return;
       }
 
-      return data;
-    });
+      await fetch("http://localhost:5000/api/score/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          value: Number(scoreValue),
+        }),
+      }).then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message);
+        return data;
+      });
 
-    setScoreValue("");
-    fetchScores();
-
-  } catch (error) {
-    alert(error.message || "Something went wrong");
-  }
-};
+      setScoreValue("");
+      fetchScores();
+    } catch (error) {
+      alert(error.message || "Something went wrong");
+    }
+  };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchScores();
   }, []);
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow mt-6">
+    <div className="mt-8  backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-xl text-white">
 
-      <h2 className="font-semibold text-lg mb-4">
-        🏌️ Last 5 Scores
+      {/* TITLE */}
+      <h2 className="text-xl font-semibold mb-5">
+       Create 5 Scores
       </h2>
 
-      {/* INPUT */}
-      <div className="flex gap-2 mb-4">
+      {/* INPUT SECTION */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+
         <input
           type="number"
           value={scoreValue}
           onChange={(e) => setScoreValue(e.target.value)}
           placeholder="Enter score (1-45)"
-          className="border p-2 rounded w-40"
+          className="w-full sm:w-48 px-4 py-3 rounded-xl bg-white/10 border border-white/20 outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
         />
 
         <button
           onClick={addScore}
-          className="bg-black text-white px-4 py-2 rounded"
+          className="px-5 py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 transition shadow-lg hover:shadow-blue-500/30"
         >
           Add Score
         </button>
       </div>
 
       {/* LIST */}
-      <ul>
+      <div className="space-y-2">
+
         {scores.length === 0 ? (
-          <p>No scores yet</p>
+          <p className="text-gray-300 text-sm">No scores yet</p>
         ) : (
           scores.map((s) => (
-            <li key={s._id} className="py-1 border-b">
-              Score: {s.value} |{" "}
-              {new Date(s.date).toLocaleDateString()}
-            </li>
+            <div
+              key={s._id}
+              className="flex justify-between items-center px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
+            >
+              <span className="text-cyan-300 font-medium">
+                Score: {s.value}
+              </span>
+
+              <span className="text-gray-300 text-sm">
+                {new Date(s.date).toLocaleDateString()}
+              </span>
+            </div>
           ))
         )}
-      </ul>
 
+      </div>
     </div>
   );
 };

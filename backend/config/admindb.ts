@@ -2,11 +2,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { User } from "../models/userModel";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/eccomerce"; // 👈 change this
+const MONGO_URI = "mongodb://127.0.0.1:27017/eccomerce"; 
 
 const createAdmin = async () => {
   try {
-    // ✅ CONNECT DB FIRST
     await mongoose.connect(MONGO_URI);
     console.log("✅ DB Connected");
 

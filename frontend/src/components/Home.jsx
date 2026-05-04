@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import About from "../pages/About";
-import Charity from "../pages/Charity";
+import Charity from "./Charity";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Home = () => {
 
     </div>
     <About/>
-    <Charity/>
+   <Charity />
     </>
   );
 };
