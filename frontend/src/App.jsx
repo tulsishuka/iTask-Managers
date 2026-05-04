@@ -17,7 +17,7 @@ import AdminScores from './pages/admin/AdminScores';
 import AdminDraw from './pages/admin/AdminDraw';
 import AdminWinners from './pages/admin/AdminWinners';
 import AdminCharities from './pages/admin/AdminCharities';
-
+import About from './pages/About';
 const App = () => {
   return (
     <>
@@ -33,6 +33,8 @@ const App = () => {
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Charity" element={<Charity />} />
                         <Route path="/Scores" element={<Score />} />
+                              <Route path="About" element={<About />} />
+
  <Route path="/admin" element={<AdminLayout />}>
 
       <Route index element={<Dashboard />} />
