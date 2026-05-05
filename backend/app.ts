@@ -60,21 +60,17 @@ const app = express();
 
 // 🔥 Middleware
 app.use(express.json());
-
-// ✅ FIXED CORS (important for Render + frontend)
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "https://your-frontend-url.onrender.com" // 👉 change this
+    
+      "https://givehope-platform-4.onrender.com" // 👉 change this
     ],
     credentials: true,
   })
 );
 
-// Optional: allow preflight requests
-app.options("*", cors());
+
 
 // 🔥 Routes
 app.use("/api/v1/auth", authRouter);
