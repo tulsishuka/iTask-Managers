@@ -14,7 +14,16 @@ import adminRoutes from "./routes/adminRoutes";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://givehope-platform-5.onrender.com/",
+
+    ],
+    credentials: true,
+  })
+);
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/payment", paymentRoutes);
