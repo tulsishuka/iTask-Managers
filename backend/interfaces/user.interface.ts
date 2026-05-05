@@ -20,9 +20,7 @@ export interface IUser {
   subscriptionStart?: Date | null;
   subscriptionEnd?: Date | null;
 
-  // ❤️ FIXED TYPE
   selectedCharity?: Types.ObjectId | null;
 
-  // 📊 ADD THIS ALSO
   donationPercentage?: number;
 }

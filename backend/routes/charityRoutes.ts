@@ -5,10 +5,8 @@ import { getCharities } from "../controllers/adminController";
 
 const router = express.Router();
 
-// Public route
 router.get("/", getCharities);
 
-// ✅ FIXED: Only auth required
 router.post(
   "/select",
   protectedMiddleware,

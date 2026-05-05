@@ -112,7 +112,6 @@ export const addCharity = async (req: Request, res: Response) => {
   }
 };
 
-// 📋 Get Charities
 export const getCharities = async (req: Request, res: Response) => {
   try {
     const charities = await Charity.find();
@@ -127,7 +126,6 @@ export const getCharities = async (req: Request, res: Response) => {
   }
 };
 
-// ✏️ Update Charity
 export const updateCharity = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -165,9 +163,6 @@ export const deleteCharity = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * 🏆 WINNER MANAGEMENT
- */
 
 // 📋 Get results
 export const getResults = async (req: Request, res: Response) => {
@@ -184,7 +179,6 @@ export const getResults = async (req: Request, res: Response) => {
   }
 };
 
-// ✅ Approve winner
 export const approveWinner = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -205,7 +199,6 @@ export const approveWinner = async (req: Request, res: Response) => {
   }
 };
 
-// ❌ Reject winner
 export const rejectWinner = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -246,7 +239,6 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 
-// 👇 GET ALL USERS WITH SCORES
 export const getUsersWithScores = async (req: Request, res: Response) => {
   try {
     const users = await User.find()
@@ -255,7 +247,6 @@ export const getUsersWithScores = async (req: Request, res: Response) => {
 
     const scores = await Score.find().lean();
 
-    // attach scores to users
     const usersWithScores = users.map((u) => {
       const userScores = scores.filter(
         (s) => s.userId.toString() === u._id.toString()
@@ -281,14 +272,6 @@ export const getUsersWithScores = async (req: Request, res: Response) => {
     });
   }
 };
-
-
-
-
-
-
-;
-
 
 
 

@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 
 const CharityDonationSchema = new mongoose.Schema(
@@ -29,5 +27,4 @@ const CharityDonationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// ✅ FIXED NAME HERE
 export default mongoose.model("CharityDonation", CharityDonationSchema);

@@ -10,7 +10,6 @@ import { adminMiddleware } from "../middlewares/adminMiddleware";
 
 const router = express.Router();
 
-// Admin
 router.get("/", protectedMiddleware, adminMiddleware, getAllResults);
 router.put("/verify/:resultId", protectedMiddleware, adminMiddleware, verifyWinner);
 router.put("/reject/:resultId", protectedMiddleware, adminMiddleware, rejectWinner);

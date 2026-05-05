@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema<IUser>(
     resetToken: String,
     resetTokenExpires: Date,
 
-    // 💳 Subscription
     subscriptionStatus: {
       type: String,
       enum: ["inactive", "active", "expired"],
@@ -52,14 +51,12 @@ const userSchema = new mongoose.Schema<IUser>(
       default: null,
     },
 
-    // ❤️ Charity selection (IMPORTANT)
     selectedCharity: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Charity",
       default: null,
     },
 
-    // 📊 Donation percentage
     donationPercentage: {
       type: Number,
       min: 0,

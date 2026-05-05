@@ -18,6 +18,8 @@ import AdminDraw from './pages/admin/AdminDraw';
 import AdminWinners from './pages/admin/AdminWinners';
 import AdminCharities from './pages/admin/AdminCharities';
 import About from './pages/About';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
@@ -46,7 +48,7 @@ const App = () => {
 
     </Route>
       </Routes>
-    
+       <ToastContainer />
     </>
   )
 }

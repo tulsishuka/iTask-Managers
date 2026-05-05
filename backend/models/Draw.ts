@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const drawSchema = new mongoose.Schema({
-  month: String, // "2026-04"
-  numbers: [Number], // 5 numbers
+  month: String, 
+  numbers: [Number], 
 
   type: {
     type: String,

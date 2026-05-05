@@ -6,7 +6,7 @@ export interface IResults extends Document {
   matchedNumbers: number;
   rewardType: string;
   winnings: number;
-  status: "pending" | "verified" | "rejected"; // ✅ IMPORTANT
+  status: "pending" | "verified" | "rejected"; 
 }
 
 const resultSchema = new mongoose.Schema<IResults>({

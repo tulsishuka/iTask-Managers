@@ -7,7 +7,6 @@ export const addScore = async (req: any, res: Response) => {
     const { value } = req.body;
     const userId = req.user._id;
 
-    // 🔥 Validation
     if (!value || value < 1 || value > 45) {
       return res.status(400).json({
         success: false,
@@ -15,14 +14,12 @@ export const addScore = async (req: any, res: Response) => {
       });
     }
 
-    // ✅ Normalize today's date
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    // ❌ Check duplicate date
     const existingScore = await Score.findOne({
       userId,
       date: {
@@ -38,15 +35,12 @@ export const addScore = async (req: any, res: Response) => {
       });
     }
 
-    // 🔥 Get all scores (oldest first)
     const scores = await Score.find({ userId }).sort({ createdAt: 1 });
 
-    // 🚨 If already 5 → delete oldest
     if (scores.length >= 5) {
       await Score.findByIdAndDelete(scores[0]._id);
     }
 
-    // ✅ Add new score
     const newScore = await Score.create({
       userId,
       value,
@@ -66,7 +60,6 @@ export const addScore = async (req: any, res: Response) => {
   }
 };
 
-// ✅ GET LAST 5 SCORES (latest first)
 export const getScores = async (req: any, res: Response) => {
   try {
     const scores = await Score.find({ userId: req.user._id })

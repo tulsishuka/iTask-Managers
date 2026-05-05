@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 
 import axios from "axios";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Verify = () => {
   const location = useLocation();
@@ -16,79 +16,77 @@ const Verify = () => {
   const handleVerify = async (e) => {
     e.preventDefault();
 
-    if (!otp) return alert("Please enter OTP");
+    if (!otp) {
+      toast.error("Please enter OTP");
+      return;
+    }
 
     try {
       setLoading(true);
 
       const res = await axios.post(
         "http://localhost:5000/api/v1/auth/verify-otp",
-        {
-          email,
-          otp,
-        }
+        { email, otp }
       );
 
-      alert(res.data.message);
+      toast.success(res.data.message || "Verified successfully ❤️");
 
-      navigate("/Subscription");
+      setTimeout(() => {
+        navigate("/Subscription");
+      }, 1000);
 
     } catch (error) {
-      alert("❌ Invalid OTP. Please try again.");
+      toast.error(error.response?.data?.message || "Invalid OTP");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-slate-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#050B3E]  px-4">
 
       {/* CARD */}
-      <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
+      <div className="w-full max-w-md  border border-white/20 shadow-2xl rounded-3xl p-8 text-green-500">
 
-        {/* HEADER */}
-        <h2 className="text-2xl font-bold text-center text-slate-800">
+        {/* TITLE */}
+        <h2 className="text-3xl font-bold text-center">
           Verify Your Account
         </h2>
 
-        <p className="text-center text-sm text-slate-500 mt-2">
-          We’ve sent a 6-digit OTP to
+        <p className="text-center text-sm text-blue-100 mt-2">
+          Enter OTP sent to
         </p>
 
-        <p className="text-center text-sm font-medium text-slate-700 mt-1 break-all">
+        <p className="text-center text-sm font-semibold text-white mt-1 break-all">
           {email}
         </p>
-
-        {/* FORM */}
-        <form onSubmit={handleVerify} className="mt-6 space-y-4">
+        <form onSubmit={handleVerify} className="mt-8 space-y-5">
 
           <div>
-            <label className="text-sm text-slate-600">Enter OTP</label>
+            <label className="text-sm text-blue-100">OTP Code</label>
             <input
               type="text"
               maxLength={6}
-              placeholder="6-digit code"
+              placeholder="Enter 6-digit OTP"
               onChange={(e) => setOtp(e.target.value)}
-              className="w-full mt-1 px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black text-center tracking-widest text-lg"
+              className="w-full mt-2 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-center tracking-widest text-lg outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-300"
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-xl text-white font-medium transition ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-black hover:bg-slate-800"
-            }`}
+            className={`w-full py-3 rounded-xl font-bold transition-all shadow-lg
+              ${
+                loading
+                  ? "bg-green-400 cursor-not-allowed"
+                  : "bg-green-500 hover:bg-green-600 hover:scale-[1.02] text-white"
+              }`}
           >
             {loading ? "Verifying..." : "Verify OTP"}
           </button>
         </form>
-
-        {/* HELP TEXT */}
-        <p className="text-xs text-center text-slate-400 mt-5">
-          Didn’t receive code? Check spam or try again.
+        <p className="text-xs text-center text-blue-100 mt-6">
+          Didn’t receive OTP? Check spam or try again.
         </p>
 
       </div>

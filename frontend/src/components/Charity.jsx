@@ -62,7 +62,6 @@ const Charity = () => {
   return (
     <div className="min-h-screen bg-[#050B3E]  py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Header Section */}
         <div className="text-center mb-24">
           <span className="text-white font-bold tracking-widest uppercase text-sm">Make an Impact</span>
           <h1 className="text-6xl font-black text-white mt-2 mb-6">
@@ -73,7 +72,6 @@ const Charity = () => {
           </p>
         </div>
 
-        {/* Alternating Z-Pattern List */}
         <div className="space-y-32">
           {charities.length > 0 ? (
             charities.map((c, index) => (
@@ -132,7 +130,6 @@ const Charity = () => {
           )}
         </div>
 
-        {/* Floating Action Button */}
         <div className="sticky bottom-10 mt-24 flex flex-col items-center z-50">
           <button
             onClick={saveCharity}

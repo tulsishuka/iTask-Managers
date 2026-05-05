@@ -50,7 +50,6 @@ export const verifyPayment = async (req: any, res: any) => {
       razorpay_signature,
     } = req.body;
 
-    // 1. VERIFY SIGNATURE
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
     const expectedSignature = crypto
@@ -62,7 +61,6 @@ export const verifyPayment = async (req: any, res: any) => {
       return res.status(400).json({ message: "Invalid signature" });
     }
 
-    // 2. GET PAYMENT
     const payment = await Payment.findOne({
       orderId: razorpay_order_id,
       status: "created",
@@ -72,26 +70,22 @@ export const verifyPayment = async (req: any, res: any) => {
       return res.status(404).json({ message: "Payment not found" });
     }
 
-    // 3. MARK PAID
     payment.status = "paid";
     payment.paymentId = razorpay_payment_id;
     await payment.save();
 
-    // 4. GET USER
     const user = await User.findById(payment.userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // 5. SPLIT MONEY
     const charityPercent = user.donationPercentage || 0;
 
     const charityAmount = (payment.amount * charityPercent) / 100;
     const prizeAmount = payment.amount * 0.8;
     const systemAmount = payment.amount - charityAmount - prizeAmount;
 
-    // 6. UPDATE PRIZE POOL
     const month = new Date().toLocaleString("default", {
       month: "long",
       year: "numeric",
@@ -103,7 +97,6 @@ export const verifyPayment = async (req: any, res: any) => {
       { upsert: true }
     );
 
-    // 7. CREATE CHARITY ENTRY (FIXED 🔥)
     if (charityAmount > 0 && user.selectedCharity) {
       await CharityDonation.create({
         userId: user._id,
@@ -113,7 +106,6 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 8. ACTIVATE SUBSCRIPTION
     await User.findByIdAndUpdate(user._id, {
       subscriptionStatus: "active",
       subscriptionPlan: payment.plan,

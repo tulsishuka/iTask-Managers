@@ -1,6 +1,5 @@
 import mongoose, { Document } from "mongoose";
 
-// ✅ 1. DEFINE TYPE
 export interface IPayment extends Document {
   userId: mongoose.Types.ObjectId;
   orderId: string;
@@ -11,7 +10,6 @@ export interface IPayment extends Document {
   createdAt: Date;
 }
 
-// ✅ 2. ADD TYPE TO SCHEMA
 const PaymentSchema = new mongoose.Schema<IPayment>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -23,7 +21,7 @@ const PaymentSchema = new mongoose.Schema<IPayment>({
 
   paymentId: String,
 
-  amount: { type: Number, required: true }, // ✅ make required
+  amount: { type: Number, required: true }, 
 
   status: {
     type: String,
@@ -43,5 +41,4 @@ const PaymentSchema = new mongoose.Schema<IPayment>({
   },
 });
 
-// ✅ 3. ADD TYPE TO MODEL
 export default mongoose.model<IPayment>("Payment", PaymentSchema);

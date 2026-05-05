@@ -32,7 +32,6 @@ export const verifyOtp = async (email: string, otp: string) => {
   if (pending.otp !== otp) throw new AppError("Invalid OTP", 400);
   if (pending.otpExpires < new Date()) throw new AppError("OTP expired", 400);
 
-  // ✅ NOW create real user
   const user = await User.create({
     name: pending.name,
     email: pending.email,
@@ -40,7 +39,6 @@ export const verifyOtp = async (email: string, otp: string) => {
     isVerified: true,
   });
 
-  // ❌ delete temp user
   await PendingUser.deleteOne({ email });
 
   return user;
@@ -57,7 +55,6 @@ export const loginUser = async (email: string, password: string) => {
   return user;
 };
 
-// Reset password using old password (no OTP)
 export const resetPasswordWithOld = async (email: string, oldPassword: string, newPassword: string) => {
   const user = await User.findOne({ email });
   if (!user) throw new AppError("User not found", 404);

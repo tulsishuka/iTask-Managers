@@ -6,7 +6,6 @@ import { Document, DefaultSchemaOptions, Types } from "mongoose";
 
 
 
-// 🎲 Generate 5 random numbers (1–45)
 const generateNumbers = (): number[] => {
   const nums = new Set<number>();
 
@@ -17,7 +16,6 @@ const generateNumbers = (): number[] => {
   return Array.from(nums);
 };
 
-// 🧑‍💼 CREATE DRAW (optional)
 export const createDraw = async (req: Request, res: Response) => {
   try {
     const { numbers } = req.body;
@@ -56,7 +54,7 @@ export const runDraw = async (req: Request, res: Response) => {
     const allScores = await Score.find();
 
     const userMap: any = {};
-    const results: any[] = []; // ✅ STORE RESULTS
+    const results: any[] = []; 
 
     // GROUP USERS
     allScores.forEach((s: any) => {
@@ -99,7 +97,6 @@ export const runDraw = async (req: Request, res: Response) => {
       results.push(result); // ✅ ADD TO ARRAY
     }
 
-    // ✅ OPTIONAL (BEST): populate user details
     const populatedResults = await Result.find({ drawId: draw._id })
       .populate("userId", "name email");
 

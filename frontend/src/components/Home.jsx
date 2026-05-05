@@ -9,12 +9,8 @@ const Home = () => {
   return (
     <>
     <div className="min-h-screen bg-[#050B3E] relative overflow-hidden text-white">
-
-      {/* MAIN */}
       <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto px-6 py-24 md:py-32">
-        
-        {/* LEFT */}
-        <section className="flex flex-col items-start gap-6">
+                <section className="flex flex-col items-start gap-6">
 
          
 
@@ -27,8 +23,6 @@ const Home = () => {
             Submit your numbers, join monthly draws, and win exciting prizes — 
             while contributing to meaningful charities.
           </p>
-
-          {/* CTA */}
           <div className="flex gap-4 mt-4">
             <button
               onClick={() => navigate("/signup")}
@@ -41,10 +35,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* RIGHT */}
         <section className="flex justify-center items-center">
 
-          {/* DRAW NUMBERS UI */}
           <div className="flex gap-4 text-xl font-bold">
 
             {[12, 25, 7, 33, 41].map((num, i) => (
@@ -62,7 +54,6 @@ const Home = () => {
         </section>
       </div>
 
-      {/* OPTIONAL GLOW EFFECT */}
       <div className="absolute w-[400px] h-[400px] bg-green-500 opacity-20 blur-3xl rounded-full top-[-100px] right-[-100px]" />
       <div className="absolute w-[300px] h-[300px] bg-blue-500 opacity-20 blur-3xl rounded-full bottom-[-100px] left-[-100px]" />
 

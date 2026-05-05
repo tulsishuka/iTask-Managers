@@ -13,7 +13,7 @@ const drawParticipationSchema = new mongoose.Schema({
     required: true,
   },
 
-  entryNumbers: [Number], // user's selected numbers
+  entryNumbers: [Number],
 
   status: {
     type: String,

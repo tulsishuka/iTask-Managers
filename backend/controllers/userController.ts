@@ -10,13 +10,11 @@ interface AuthRequest extends Request {
   user?: any;
 }
 
-// ✅ Type for populated charity
 interface PopulatedCharity {
   _id: string;
   name: string;
 }
 
-// ✅ Type for user after populate
 interface IUserWithCharity {
   subscriptionStatus?: string;
   subscriptionPlan?: string;
@@ -30,7 +28,6 @@ export const getDashboard = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user?._id;
 
-    // ✅ FETCH USER + POPULATE CHARITY
     const user = await User.findById(userId)
       .populate("selectedCharity", "name")
       .lean() as IUserWithCharity | null;
@@ -42,7 +39,6 @@ export const getDashboard = async (req: AuthRequest, res: Response) => {
       });
     }
 
-    // ✅ FETCH OTHER DATA
     const [scores, payments, results, latestDraw] = await Promise.all([
       Score.find({ userId }).sort({ createdAt: -1 }).limit(5),
       Payment.find({ userId }).sort({ createdAt: -1 }),
@@ -50,13 +46,11 @@ export const getDashboard = async (req: AuthRequest, res: Response) => {
       Draw.findOne({ isPublished: true }).sort({ createdAt: -1 }),
     ]);
 
-    // ✅ CALCULATE WINNINGS
     const totalWinnings = results.reduce(
       (sum, r) => sum + (r.winnings || 0),
       0
     );
 
-    // ✅ RESPONSE
     return res.json({
       success: true,
       data: {
@@ -64,7 +58,6 @@ export const getDashboard = async (req: AuthRequest, res: Response) => {
         subscriptionPlan: user.subscriptionPlan || null,
         subscriptionEnd: user.subscriptionEnd || null,
 
-        // ✅ FIXED: charity name
         charity: user.selectedCharity?.name || "Not Selected",
 
         contribution: user.donationPercentage || 0,

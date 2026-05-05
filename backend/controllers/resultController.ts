@@ -3,7 +3,6 @@ import Results from "../models/Results";
 import Result from "../models/Result";
 
 
-// ✅ Get all results (admin)
 export const getAllResults = async (req: Request, res: Response) => {
 
 
@@ -24,7 +23,6 @@ export const getAllResults = async (req: Request, res: Response) => {
 
 
 
-// ✅ Verify Winner
 export const verifyWinner = async (req: Request, res: Response) => {
   try {
     const { resultId } = req.params;
@@ -49,7 +47,6 @@ export const verifyWinner = async (req: Request, res: Response) => {
   }
 };
 
-// ❌ Reject Winner
 export const rejectWinner = async (req: Request, res: Response) => {
   try {
     const { resultId } = req.params;

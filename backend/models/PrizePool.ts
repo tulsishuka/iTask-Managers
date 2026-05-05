@@ -6,7 +6,7 @@ const prizePoolSchema = new mongoose.Schema({
     default: 0,
   },
 
-  month: String, // "April-2026"
+  month: String, 
 
   rolloverAmount: {
     type: Number,

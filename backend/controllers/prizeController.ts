@@ -22,11 +22,11 @@ export const distributeRewards = async (req: any, res: any) => {
       let reward = 0;
 
       if (r.rewardType === "jackpot") {
-        reward = pool.totalAmount * 0.5; // 50%
+        reward = pool.totalAmount * 0.5; 
       } else if (r.rewardType === "medium") {
-        reward = pool.totalAmount * 0.3; // 30%
+        reward = pool.totalAmount * 0.3; 
       } else if (r.rewardType === "small") {
-        reward = pool.totalAmount * 0.2; // 20%
+        reward = pool.totalAmount * 0.2;
       }
 
       r.winnings = reward;
@@ -35,7 +35,6 @@ export const distributeRewards = async (req: any, res: any) => {
       totalDistributed += reward;
     }
 
-    // 🎯 ROLLOVER
     const remaining = pool.totalAmount - totalDistributed;
 
     pool.rolloverAmount = remaining;

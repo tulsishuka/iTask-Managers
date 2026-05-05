@@ -31,7 +31,6 @@ const seedDB = async () => {
     await Charity.deleteMany();
     await Charity.insertMany(data);
 
-    console.log("🔥 Charity data inserted successfully");
     process.exit();
   } catch (err) {
     console.log(err);

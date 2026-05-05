@@ -13,7 +13,6 @@ export const verifyPayment = async (req: any, res: any) => {
       razorpay_signature,
     } = req.body;
 
-    // 🔐 VERIFY SIGNATURE
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
     const expectedSignature = crypto
@@ -28,7 +27,6 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 🔍 FIND PAYMENT
     const payment = await Payment.findOne({ orderId: razorpay_order_id });
 
     if (!payment) {
@@ -38,7 +36,6 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 🚫 prevent double processing
     if (payment.status === "paid") {
       return res.json({
         success: true,
@@ -46,12 +43,10 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 💳 UPDATE PAYMENT FIRST
     payment.status = "paid";
     payment.paymentId = razorpay_payment_id;
     await payment.save();
 
-    // 👤 GET USER
     const user = await User.findById(payment.userId);
 
     if (!user) {
@@ -61,14 +56,12 @@ export const verifyPayment = async (req: any, res: any) => {
       });
     }
 
-    // 💰 CALCULATIONS
     const charityPercent = user.donationPercentage || 0;
 
     const charityAmount = (payment.amount * charityPercent) / 100;
     const prizeAmount = payment.amount * 0.8;
     const systemAmount = payment.amount - charityAmount - prizeAmount;
 
-    // 🏆 PRIZE POOL UPDATE
     const month = new Date().toLocaleString("default", {
       month: "long",
       year: "numeric",
@@ -80,17 +73,15 @@ export const verifyPayment = async (req: any, res: any) => {
       { upsert: true, new: true }
     );
 
-    // ❤️ CHARITY SAVE (IMPORTANT FIX HERE)
     if (user.selectedCharity && charityAmount > 0) {
       await CharityDonation.create({
         userId: user._id,
         charityId: user.selectedCharity,
-        paymentId: razorpay_payment_id, // ✅ ALWAYS USE THIS
+        paymentId: razorpay_payment_id, 
         amount: charityAmount,
       });
     }
 
-    // 🔥 ACTIVATE SUBSCRIPTION
     user.subscriptionStatus = "active";
     user.subscriptionPlan = payment.plan;
     user.subscriptionStart = new Date();
