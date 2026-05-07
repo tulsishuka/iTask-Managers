@@ -6,7 +6,6 @@ A full-stack web application that allows users to participate in a charity-based
 🌐 Live Website:https://givehope-platform-5.onrender.com/
 👤 User Dashboard: https://givehope-platform-5.onrender.com/dashboard
 🔐 Admin Panel:https://givehope-platform-5.onrender.com/admin
-📌 Features
 ```
 ```
 👤 User Side
