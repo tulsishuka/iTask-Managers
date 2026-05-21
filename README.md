@@ -3,10 +3,9 @@ Charity & Reward Management System (Full Stack MERN)
 A full-stack web application that allows users to participate in a charity-based reward system, track scores, view winners, and manage contributions through an admin dashboard.
 ```
 🚀 Live Demo
-🌐 Live Website: https://your-vercel-link.vercel.app
-👤 User Dashboard: https://your-vercel-link.vercel.app/dashboard
-🔐 Admin Panel: https://your-vercel-link.vercel.app/admin
-📌 Features
+🌐 Live Website:https://givehope-platform-5.onrender.com/
+👤 User Dashboard: https://givehope-platform-5.onrender.com/dashboard
+🔐 Admin Panel:https://givehope-platform-5.onrender.com/admin
 ```
 ```
 👤 User Side
@@ -91,7 +90,7 @@ Mobile app version
 👨‍💻 Developer
 ```
 
-Created by: Your Name
+Created by: Tulasi Shukla
 Role: Full Stack Developer (MERN)
 
 📜 License
