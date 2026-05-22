@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import About from "../pages/About";
-import Impact from "../pages/impact";
 import Account from "../pages/Account";
 import Footer from "../layouts/Footer";
-
-/* ---------------- HEADING ANIMATION ---------------- */
+import Impact from "../pages/Impact";
 
 const sentence = ["Golf", "Rewards."];
 
