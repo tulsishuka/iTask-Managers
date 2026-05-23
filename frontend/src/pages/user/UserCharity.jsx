@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -54,87 +52,117 @@ const UserCharity = () => {
   };
 
   const saveCharity = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) { alert("Please login first"); return; }
-      if (!selected) { alert("Select a charity first"); return; }
+  try {
+    const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
 
-      loading(true);
-      await axios.post(
-        "https://givehope-platform-4.onrender.com/api/charity/select",
-        { charityId: selected._id, percentage: selected.percentage || 0 },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      setSaved(true);
-      alert("Charity saved successfully ❤️");
-      setTimeout(() => navigate("/dashboard", { replace: true }), 500);
-    } catch (err) {
-      alert(err.response?.data?.message || "Failed to save charity");
-    } finally {
-      setLoading(false);
+    if (!token) {
+      alert("Please login first");
+      return;
     }
-  };
+
+    if (!selected) {
+      alert("Select a charity first");
+      return;
+    }
+
+    setLoading(true);
+
+    await axios.post(
+      "https://givehope-platform-4.onrender.com/api/charity/select",
+      {
+        charityId: selected._id,
+        percentage: selected.percentage || 0,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setSaved(true);
+
+    alert("Charity saved successfully ❤️");
+
+    setTimeout(() => {
+      navigate("/dashboard", { replace: true });
+    }, 500);
+
+  } catch (err) {
+    console.log(err);
+
+    alert(err.response?.data?.message || "Failed to save charity");
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
   
 
     <div className="min-h-screen bg-[#0A0E0C] text-white flex font-sans selection:bg-[#20E49B] selection:text-black">
 
-  {/* MAIN AREA */}
   <main className="flex-1 pb-24 overflow-y-auto">
 
-    {/* HERO SECTION */}
-    <section className="relative min-h-[620px] md:h-[520px] flex items-center px-4 sm:px-6 md:px-10 lg:px-12 overflow-hidden bg-gradient-to-b from-[#111A15] to-[#0A0E0C]">
+<section className="relative min-h-[520px] sm:min-h-[620px] md:min-h-[70vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 md:px-10 lg:px-12 py-16 sm:py-20">
 
-      {/* BACKGROUND EFFECTS */}
-      <div className="absolute right-[-10%] top-[-20%] w-[400px] md:w-[700px] h-[400px] md:h-[700px] bg-[#20E49B]/5 rounded-full blur-[120px] pointer-events-none" />
+  <div className="absolute right-[-35%] sm:right-[-20%] md:right-[-10%] top-[-10%] md:top-[-20%] w-[260px] sm:w-[400px] md:w-[700px] h-[260px] sm:h-[400px] md:h-[700px] bg-[#20E49B]/5 rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px] pointer-events-none" />
 
-      <div className="absolute right-[15%] bottom-[10%] w-[220px] md:w-[400px] h-[220px] md:h-[400px] bg-[#20E49B]/10 rounded-full blur-[100px] pointer-events-none" />
+  <div className="absolute right-[0%] sm:right-[10%] md:right-[15%] bottom-[0%] md:bottom-[10%] w-[180px] sm:w-[220px] md:w-[400px] h-[180px] sm:h-[220px] md:h-[400px] bg-[#20E49B]/10 rounded-full blur-[70px] sm:blur-[90px] md:blur-[100px] pointer-events-none" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(#16221B_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
+  <div className="absolute inset-0 bg-[radial-gradient(#16221B_1px,transparent_1px)] [background-size:16px_16px] opacity-20 md:opacity-30" />
 
-      {/* HERO CONTENT */}
-      <div className="max-w-3xl relative z-10 space-y-5 md:space-y-6">
+  <div className="relative z-10 max-w-5xl w-full text-center flex flex-col items-center space-y-5 sm:space-y-6">
 
-        <div className="inline-flex items-center gap-2 bg-[#1B2D24] border border-[#254234] text-[#20E49B] px-3 py-1 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#20E49B]" />
-          Global Impact Initiative
-        </div>
+    <div className="inline-flex items-center gap-2 bg-[#161D19]/90 backdrop-blur-md border border-[#254234] text-[#20E49B] px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider">
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight md:leading-[1.1] text-white">
-          Every Swing{" "}
-          <span className="text-[#20E49B] italic font-medium">
-            Saves Lives.
-          </span>
-        </h1>
+      <span className="w-1.5 h-1.5 rounded-full bg-[#20E49B]" />
 
-        <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed font-normal">
-          Fairway Impact bridges the gap between competitive precision and humanitarian aid.
-          Your performance on the course fuels clean water initiatives,
-          education, and reforestation worldwide.
-        </p>
+      Global Impact Initiative
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
-          <button className="w-full sm:w-auto px-6 py-3 bg-[#20E49B] hover:bg-[#1BCB89] text-black font-bold rounded-xl transition-all shadow-lg shadow-[#20E49B]/20">
-            Explore Charities
-          </button>
+    </div>
 
-          <button className="w-full sm:w-auto px-6 py-3 bg-[#161D19] hover:bg-[#1F2923] text-gray-300 font-semibold rounded-xl border border-[#25312A] transition-all">
-            Impact Report 2026
-          </button>
-        </div>
-      </div>
-    </section>
+    <h1 className="max-w-5xl text-[2.5rem] leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white px-1">
 
-    {/* CONTENT AREA */}
+      Every Swing{" "}
+
+      <span className="bg-gradient-to-r from-[#39E596] to-[#2B82F6] bg-clip-text text-transparent italic font-medium">
+        Saves Lives.
+      </span>
+
+    </h1>
+
+    <p className="text-[#85B69D] text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed font-normal px-2 sm:px-0">
+
+      Fairway Impact bridges the gap between competitive precision
+      and humanitarian aid. Your performance on the course fuels
+      clean water initiatives, education, and reforestation worldwide.
+
+    </p>
+
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-3 w-full sm:w-auto">
+
+      <button className="w-full sm:w-auto px-6 py-3.5 bg-[#20E49B] hover:bg-[#1BCB89] text-black font-bold rounded-xl transition-all shadow-lg shadow-[#20E49B]/20 text-sm sm:text-base">
+
+        Explore Charities
+
+      </button>
+
+      <button className="w-full sm:w-auto px-6 py-3.5 bg-[#161D19] hover:bg-[#1F2923] text-gray-300 font-semibold rounded-xl border border-[#25312A] transition-all text-sm sm:text-base">
+
+        Impact Report 2026
+
+      </button>
+
+    </div>
+
+  </div>
+</section>
     <div className="px-4 sm:px-6 md:px-10 lg:px-12 max-w-7xl mx-auto -mt-10 md:-mt-16 relative z-20 space-y-10 md:space-y-12">
-
-      {/* METRICS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-
-        {/* CARD 1 */}
-        <div className="bg-[#111613] border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md space-y-4">
+        <div className="bg-black border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md space-y-4">
 
           <span className="text-[10px] font-bold tracking-widest text-[#20E49B] uppercase">
             Total Ecosystem Contribution
@@ -166,7 +194,7 @@ const UserCharity = () => {
         </div>
 
         {/* CARD 2 */}
-        <div className="bg-[#111613] border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-between">
+        <div className="bg-black border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-between">
           <div className="w-10 h-10 bg-[#1B2D24] border border-[#254234] rounded-xl flex items-center justify-center text-[#20E49B]">
             <Leaf size={20} />
           </div>
@@ -181,9 +209,7 @@ const UserCharity = () => {
             </p>
           </div>
         </div>
-
-        {/* CARD 3 */}
-        <div className="bg-[#111613] border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-between">
+        <div className="bg-black border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-between">
           <div className="w-10 h-10 bg-[#172738] border border-[#1E354C] rounded-xl flex items-center justify-center text-blue-400">
             <Droplet size={20} />
           </div>
@@ -200,7 +226,6 @@ const UserCharity = () => {
         </div>
       </div>
 
-      {/* PARTNER SECTION */}
       <section className="space-y-6 pt-2 md:pt-6">
 
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
@@ -221,7 +246,6 @@ const UserCharity = () => {
           </button>
         </div>
 
-        {/* CHARITIES */}
         {charities.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
 
@@ -240,7 +264,6 @@ const UserCharity = () => {
                   }`}
                 >
 
-                  {/* IMAGE */}
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-neutral-800">
 
                     <img
@@ -267,7 +290,6 @@ const UserCharity = () => {
                     )}
                   </div>
 
-                  {/* CONTENT */}
                   <div className="p-5 md:p-6 space-y-3 flex-1 flex flex-col justify-between">
 
                     <div className="space-y-2">
@@ -315,7 +337,6 @@ const UserCharity = () => {
         )}
       </section>
 
-      {/* SAVE BUTTON */}
       {selected && (
         <div className="sticky bottom-4 md:bottom-6 flex flex-col items-center z-50 animate-fade-in-up px-2">
 
@@ -348,6 +369,8 @@ const UserCharity = () => {
     </div>
   </main>
 </div>
+
+
   );
 };
 
