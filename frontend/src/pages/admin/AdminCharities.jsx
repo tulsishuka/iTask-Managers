@@ -1,91 +1,4 @@
-
-
-
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const AdminCharities = () => {
-//   const [charities, setCharities] = useState([]);
-//   const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     // eslint-disable-next-line react-hooks/immutability
-//     fetchCharities();
-//   }, []);
-
-//   const fetchCharities = async () => {
-//     try {
-//       const res = await axios.get(
-//         "https://givehope-platform-4.onrender.com/api/admin/charity",
-//         {
-//           headers: { Authorization: `Bearer ${token}` },
-//         }
-//       );
-
-//       setCharities(res.data.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-10 py-8">
-
-//       {/* HEADER */}
-//       <div className="mb-8">
-//         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-//            Charities Dashboard
-//         </h1>
-      
-//       </div>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
-//         {charities.length > 0 ? (
-//           charities.map((c) => (
-//             <div
-//               key={c._id}
-//               className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 p-5 flex flex-col gap-3"
-//             >
-//               <h2 className="text-lg font-semibold text-gray-800 truncate">
-//                 {c.name}
-//               </h2>
-//               <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-//                 <div
-//                   className="h-full bg-green-500 rounded-full"
-//                   style={{ width: `${c.percentage}%` }}
-//                 ></div>
-//               </div>
-//               <p className="text-sm text-gray-600">
-//                 Contribution:{" "}
-//                 <span className="font-semibold text-green-600">
-//                   {c.percentage}%
-//                 </span>
-//               </p>
-//               <div className="mt-2">
-//                 <span className="inline-block px-3 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
-//                   Active Charity
-//                 </span>
-//               </div>
-
-//             </div>
-//           ))
-//         ) : (
-//           <div className="col-span-full text-center py-20 text-gray-400">
-//             No charities found
-//           </div>
-//         )}
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminCharities;
-
-
-
-
-
+/* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -113,9 +26,8 @@ const AdminCharities = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0d110e] text-[#e4e7e5] p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-black text-[#e4e7e5] p-4 sm:p-6 lg:p-8">
 
-      {/* HEADER */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-10">
 
         <div>
@@ -135,10 +47,9 @@ const AdminCharities = () => {
 
       </div>
 
-      {/* STATS CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
 
-        <div className="bg-[#131915] border border-[#1f2923] rounded-2xl p-6">
+        <div className="bg-black border border-[#1f2923] rounded-2xl p-6">
           <div className="text-xs uppercase tracking-wider text-gray-500 font-semibold">
             Total Organizations
           </div>
@@ -152,7 +63,7 @@ const AdminCharities = () => {
           </p>
         </div>
 
-        <div className="bg-[#131915] border border-[#1f2923] rounded-2xl p-6">
+        <div className="bg-black border border-[#1f2923] rounded-2xl p-6">
           <div className="text-xs uppercase tracking-wider text-gray-500 font-semibold">
             Contribution Model
           </div>
@@ -166,7 +77,7 @@ const AdminCharities = () => {
           </p>
         </div>
 
-        <div className="bg-[#131915] border border-[#1f2923] rounded-2xl p-6">
+        <div className="bg-black border border-[#1f2923] rounded-2xl p-6">
           <div className="text-xs uppercase tracking-wider text-gray-500 font-semibold">
             Platform Status
           </div>
@@ -181,8 +92,6 @@ const AdminCharities = () => {
         </div>
 
       </div>
-
-      {/* CHARITIES GRID */}
       {charities.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
@@ -191,8 +100,6 @@ const AdminCharities = () => {
               key={c._id}
               className="group bg-[#131915] border border-[#1f2923] rounded-3xl overflow-hidden hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1 shadow-xl"
             >
-
-              {/* TOP BANNER */}
               <div className="relative h-40 bg-gradient-to-br from-emerald-500/10 via-[#131915] to-[#0d110e] overflow-hidden">
 
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.15),transparent_60%)]" />
@@ -208,8 +115,6 @@ const AdminCharities = () => {
                 </div>
 
               </div>
-
-              {/* CONTENT */}
               <div className="p-6 space-y-5">
 
                 <div>
@@ -221,8 +126,6 @@ const AdminCharities = () => {
                     This organization receives impact contributions from player participation and ecosystem activities.
                   </p>
                 </div>
-
-                {/* PROGRESS */}
                 <div className="space-y-3">
 
                   <div className="flex items-center justify-between">
@@ -244,7 +147,6 @@ const AdminCharities = () => {
 
                 </div>
 
-                {/* FOOTER */}
                 <div className="pt-4 border-t border-[#1f2923] flex items-center justify-between">
 
                   <div>
@@ -273,7 +175,7 @@ const AdminCharities = () => {
         <div className="bg-[#131915] border border-[#1f2923] rounded-3xl py-24 flex flex-col items-center justify-center text-center">
 
           <div className="w-20 h-20 rounded-full bg-[#1b231e] border border-[#2b3830] flex items-center justify-center text-4xl mb-5">
-            🌱
+           ☺️
           </div>
 
           <h2 className="text-2xl font-bold text-white">
