@@ -1,90 +1,4 @@
-
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const Dashboard = () => {
-//   const [stats, setStats] = useState({});
-//   const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     // eslint-disable-next-line react-hooks/immutability
-//     fetchStats();
-//   }, []);
-
-//   const fetchStats = async () => {
-//     try {
-//       const res = await axios.get(
-//         "https://givehope-platform-4.onrender.com/api/admin/analytics",
-//         {
-//           headers: { Authorization: `Bearer ${token}` },
-//         }
-//       );
-
-//       setStats(res.data.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen  px-4 sm:px-6 lg:px-10 py-8 bg-gradient-to-br from-gray-100 to-gray-200">
-//       <div className="mb-10">
-//         <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
-//           📊 Admin Dashboard
-//         </h1>
-//         <p className="text-gray-500 mt-1 text-sm">
-//           Real-time platform analytics overview
-//         </p>
-//       </div>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-//         <Card
-//           title="Total Users"
-//           value={stats.totalUsers}
-//           gradient="from-blue-500 to-blue-700"
-//           icon="👥"
-//         />
-
-//         <Card
-//           title="Revenue"
-//           value={`₹${stats.totalRevenue || 0}`}
-//           gradient="from-green-500 to-emerald-600"
-//           icon="💰"
-//         />
-
-//         <Card
-//           title="Prize Pool"
-//           value={`₹${stats.prizePool || 0}`}
-//           gradient="from-purple-500 to-indigo-600"
-//           icon="🏆"
-//         />
-
-//         <Card
-//           title="Charity Contribution"
-//           value={`₹${stats.charityContribution || 0}`}
-//           gradient="from-pink-500 to-rose-600"
-//           icon="❤️"
-//         />
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Card = ({ title, value, gradient, icon }) => (
-//   <div
-//     className={`relative overflow-hidden rounded-2xl p-6 text-white shadow-lg transition transform hover:scale-[1.03] bg-gradient-to-r ${gradient}`}
-//   >
-//     <div className="text-3xl">{icon}</div>
-//     <p className="mt-3 text-sm opacity-90">{title}</p>
-//     <h2 className="text-2xl font-bold mt-1">{value}</h2>
-//     <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
-//   </div>
-// );
-
-// export default Dashboard;
-
-
+/* eslint-disable react-hooks/immutability */
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -133,19 +47,18 @@ const Dashboard = () => {
           {/* LIVE STATUS */}
           <div className="flex items-center gap-3">
 
-            <div className="bg-[#131915] border border-[#212f26] px-4 py-2 rounded-full flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wide uppercase">
+            <div className="bg-black border border-[#212f26] px-4 py-2 rounded-full flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wide uppercase">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               System Operational
             </div>
 
-            <button className="w-10 h-10 rounded-full bg-[#131915] border border-[#212f26] text-gray-400 hover:text-white transition">
+            <button className="w-10 h-10 rounded-full border border-[#212f26] text-gray-400 hover:text-white transition">
               🔔
             </button>
           </div>
         </header>
 
-        {/* TOP ANALYTICS CARDS */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
+        <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-8 ">
 
           <AdminCard
             title="Total Users"
@@ -153,6 +66,7 @@ const Dashboard = () => {
             icon="👥"
             color="text-cyan-400"
             bg="bg-cyan-500/10"
+            className="bg-black"
           />
 
           <AdminCard
@@ -184,7 +98,7 @@ const Dashboard = () => {
         <section className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
 
           {/* PERFORMANCE */}
-          <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl xl:col-span-2">
+          <div className="bg-black border border-[#1f2923] p-6 rounded-2xl xl:col-span-2">
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
 
@@ -232,7 +146,7 @@ const Dashboard = () => {
           </div>
 
           {/* RIGHT PANEL */}
-          <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
+          <div className="bg-black border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
 
             <div>
 
@@ -308,7 +222,7 @@ const Dashboard = () => {
 };
 
 const AdminCard = ({ title, value, icon, color, bg }) => (
-  <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
+  <div className="bg-black border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
 
     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${bg}`}>
       {icon}

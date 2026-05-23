@@ -1,6 +1,3 @@
-
-
-
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -8,15 +5,15 @@ const Navbar = () => {
 
  const navLinks = [
   { name: "Charity", path: "/UserCharity" },
-  { name: "Features", path: "/features" },
   { name: "Pricing", path: "/Subscription" },
+  { name: "Scores", path: "/UserScores" },
+
 ];
 
   return (
+
     <nav className="w-full bg-[#000000] border-b border-zinc-800 px-6 py-4 sticky top-0 z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-
-        {/* LEFT: BRAND */}
         <Link
           to="/"
           className="text-xl md:text-2xl font-bold text-[#5BDDA9] tracking-wide"
@@ -24,7 +21,6 @@ const Navbar = () => {
           Fairway Impact
         </Link>
 
-        {/* CENTER: NAV LINKS */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
@@ -49,7 +45,6 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* RIGHT: ACTION BUTTONS */}
         <div className="flex items-center space-x-6">
           <Link
             to="/login"

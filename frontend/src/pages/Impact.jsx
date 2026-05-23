@@ -7,7 +7,6 @@ const Impact = () => {
   return (
     <div className="bg-[#090F0C] text-white py-16 px-4 md:px-8 relative overflow-hidden">
 
-      {/* SKY BLUE GLOW BACKGROUND */}
       <motion.div
         animate={{
           scale: [1, 1.1, 1],
@@ -21,7 +20,6 @@ const Impact = () => {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-sky-500/20 rounded-full blur-[180px] pointer-events-none"
       />
 
-      {/* SECONDARY GLOW */}
       <motion.div
         animate={{
           scale: [1.1, 1, 1.1],
@@ -37,7 +35,6 @@ const Impact = () => {
 
       <div className="max-w-5xl mx-auto relative z-10">
 
-        {/* MAIN CARD */}
         <motion.div
           initial={{
             opacity: 0,
@@ -59,10 +56,8 @@ const Impact = () => {
           className="w-full bg-[#131815]/90 border border-[#1C221E] rounded-[32px] px-6 py-16 md:py-20 text-center flex flex-col items-center justify-center shadow-[0_0_80px_rgba(56,189,248,0.12)] backdrop-blur-xl relative overflow-hidden"
         >
 
-          {/* INNER SKY LIGHT */}
           <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-cyan-400/5 pointer-events-none" />
 
-          {/* Animated Border Glow */}
           <motion.div
             animate={{
               opacity: [0.4, 1, 0.4],
@@ -75,7 +70,6 @@ const Impact = () => {
             className="absolute inset-0 rounded-[32px] border border-sky-400/20"
           />
 
-          {/* TOP LABEL */}
           <motion.span
             initial={{
               opacity: 0,
@@ -97,7 +91,6 @@ const Impact = () => {
             Total Impact Jackpot
           </motion.span>
 
-          {/* AMOUNT */}
           <motion.h1
             initial={{
               opacity: 0,
@@ -126,7 +119,6 @@ const Impact = () => {
             $2,458,920
           </motion.h1>
 
-          {/* DESCRIPTION */}
           <motion.p
             initial={{
               opacity: 0,
@@ -143,13 +135,12 @@ const Impact = () => {
               duration: 0.8,
               delay: 0.3,
             }}
-            className="text-gray-400 text-sm md:text-base font-normal max-w-xl mx-auto leading-relaxed mb-12 px-2 relative z-10"
+            className="text-[#85B69D] text-sm md:text-base font-normal max-w-xl mx-auto leading-relaxed mb-12 px-2 relative z-10"
           >
             Accumulated wealth ready for distribution to our global charity
             partners in the current cycle.
           </motion.p>
 
-          {/* STATS */}
           <motion.div
             initial={{
               opacity: 0,
@@ -167,14 +158,13 @@ const Impact = () => {
             className="flex items-center justify-center gap-10 md:gap-14 w-full max-w-md border-t border-gray-800/40 pt-8 relative z-10"
           >
 
-            {/* LEFT */}
             <motion.div
               whileHover={{
                 y: -5,
               }}
               className="text-left md:text-center space-y-1"
             >
-              <span className="text-[9px] md:text-[10px] font-bold text-gray-500 tracking-wider uppercase block">
+              <span className="text-[9px] md:text-[10px] font-bold text-[#85B69D] tracking-wider uppercase block">
                 Current Participants
               </span>
 
@@ -183,17 +173,15 @@ const Impact = () => {
               </span>
             </motion.div>
 
-            {/* DIVIDER */}
             <div className="h-10 w-[1px] bg-gray-800" />
 
-            {/* RIGHT */}
             <motion.div
               whileHover={{
                 y: -5,
               }}
               className="text-left md:text-center space-y-1"
             >
-              <span className="text-[9px] md:text-[10px] font-bold text-gray-500 tracking-wider uppercase block">
+              <span className="text-[9px] md:text-[10px] font-bold text-[#85B69D] tracking-wider uppercase block">
                 Time to Distribution
               </span>
 

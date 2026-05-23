@@ -66,18 +66,18 @@ const SignUp = () => {
         </div>
 
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">
-          Fairway Impact
+          Fairway <span className="bg-gradient-to-r from-[#39E596] to-[#2B82F6] bg-clip-text text-transparent">Impact</span>
           
         </h1>
 
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-lg">
+        <p className="text-[#85B69D] text-sm md:text-base leading-relaxed max-w-lg">
           Join the exclusive circle of golfers turning every birdie into a catalyst for global change.
           Professional metrics, cinematic rewards, and transparent philanthropy.
         </p>
       </div>
 
-      <div className="space-y-5 mt-14">
-        <div className="flex items-start gap-4 p-4 rounded-2xl border border-[#1C2420] bg-[#111613]/70 backdrop-blur-sm">
+      <div className="space-y-5 mt-4">
+        <div className="flex items-start gap-4 p-4 rounded-2xl border border-[#1C2420] bg-black backdrop-blur-sm">
           
           <div className="w-11 h-11 rounded-2xl bg-[#1B2430] border border-[#2B3545] flex items-center justify-center shrink-0 text-sky-400">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@ const SignUp = () => {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 p-4 rounded-2xl border border-[#1C2420] bg-[#111613]/70 backdrop-blur-sm">
+        <div className="flex items-start gap-4 p-4 rounded-2xl border border-[#1C2420] bg-black backdrop-blur-sm">
           
           <div className="w-11 h-11 rounded-2xl bg-[#14291D] border border-[#224A34] flex items-center justify-center shrink-0 text-[#3EE59D]">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,15 +127,15 @@ const SignUp = () => {
       </div>
     </section>
 
-    <section className="lg:col-span-6 flex justify-center lg:justify-end w-full">
+    <section className="lg:col-span-6 flex justify-center lg:justify-end w-full ">
 
-      <div className="relative w-full max-w-[500px]">
+      <div className="relative w-full max-w-[500px] ">
 
         {/* Glow */}
         <div className="absolute inset-0  blur-[80px] rounded-[40px]" />
 
         {/* Card */}
-        <div className="relative  border border-[#1F2723] rounded-[32px] p-8 md:p-10 shadow-[0_0_60px_rgba(0,0,0,0.4)] backdrop-blur-2xl">
+        <div className="relative bg-black  border border-[#1F2723] rounded-[32px] p-8 md:p-10 shadow-[0_0_60px_rgba(0,0,0,0.4)] backdrop-blur-2xl">
 
           {/* Top */}
           <div className="flex items-center justify-between mb-10">
@@ -165,7 +165,7 @@ const SignUp = () => {
               Create Account
             </h2>
 
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <p className="text-sm text-[#85B69D] leading-relaxed">
               Enter the ecosystem where every shot contributes to global transformation.
             </p>
           </div>
@@ -174,7 +174,7 @@ const SignUp = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name"
-                className="w-full px-5 py-4 rounded-2xl bg-[#1A201D] border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
+                className="w-full px-5 py-4 rounded-2xl bg-black border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
                 required
               />
             </div>
@@ -187,7 +187,7 @@ const SignUp = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email Address"
-                className="w-full px-5 py-4 rounded-2xl bg-[#1A201D] border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
+                className="w-full px-5 py-4 rounded-2xl bg-black border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
                 required
               />
             </div>
@@ -200,7 +200,7 @@ const SignUp = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Password"
-                className="w-full px-5 py-4 rounded-2xl bg-[#1A201D] border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
+                className="w-full px-5 py-4 rounded-2xl bg-black border border-[#28302C] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-sky-400/40 focus:bg-[#1C2320] transition-all"
                 required
               />
             </div>
@@ -212,8 +212,8 @@ const SignUp = () => {
               className="w-full mt-6 py-4 bg-gradient-to-r from-[#3EE59D] to-[#5FFFD0] text-[#04110A] rounded-2xl font-bold tracking-wide hover:opacity-90 disabled:opacity-50 transition-all text-xs md:text-sm uppercase shadow-[0_10px_30px_rgba(62,229,157,0.2)]"
             >
               {loading
-                ? "Processing Alignment..."
-                : "Continue to Charity Selection"}
+                ? "Processing ..."
+                : "Create Your Account"}
             </button>
           </form>
         </div>

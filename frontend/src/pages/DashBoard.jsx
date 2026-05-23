@@ -41,7 +41,6 @@ const DashBoard = () => {
             </p>
           </div>
           
-          {/* Live Badge Status */}
           <div className="flex items-center gap-3 self-start sm:self-center">
             <div className="bg-[#131915] border border-[#212f26] px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wide uppercase">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -53,7 +52,6 @@ const DashBoard = () => {
           </div>
         </header>
 
-        {/* FOUR METRICS ROW */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           
           <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
@@ -63,8 +61,6 @@ const DashBoard = () => {
               <span>↑ +12%</span> <span className="text-gray-500">from last month</span>
             </div>
           </div>
-
-          {/* Card 2: Total Impact */}
           <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Impact</div>
             <div className="text-2xl font-bold text-gray-100 mt-2">
@@ -75,7 +71,6 @@ const DashBoard = () => {
             </div>
           </div>
 
-          {/* Card 3: Impact Points */}
           <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Impact Points</div>
             <div className="text-2xl font-bold text-orange-400 mt-2">8,420</div>
@@ -84,7 +79,6 @@ const DashBoard = () => {
             </div>
           </div>
 
-          {/* Card 4: Jackpot Entries */}
           <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Draw Participation</div>
             <div className="text-sm font-bold text-cyan-400 mt-2">{data.drawStatus}</div>
@@ -94,8 +88,7 @@ const DashBoard = () => {
         </section>
 
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          
-          {/* Performance Chart Simulation Container */}
+        
           <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
               <div>
@@ -107,8 +100,6 @@ const DashBoard = () => {
                 <option>Last 6 Months</option>
               </select>
             </div>
-
-            {/* Simulated Clean Bar Graph CSS Layout */}
             <div className="h-44 flex items-end justify-between gap-2 pt-4 px-2">
               <div className="w-full flex flex-col items-center gap-2">
                 <div className="w-full bg-[#1c241f] rounded-t-md h-24 relative"><div className="absolute bottom-0 w-full bg-emerald-700/40 rounded-t-md h-3/4"></div></div>
@@ -140,8 +131,6 @@ const DashBoard = () => {
               </div>
             </div>
           </div>
-
-          {/* Right Status Card: Subscription Details */}
           <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
@@ -178,8 +167,6 @@ const DashBoard = () => {
           </div>
 
         </section>
-
-        {/* RECENT ACTIVITY LOG SECTION */}
         <section>
           <h3 className="text-base font-bold text-gray-200 mb-4">Recent Activity</h3>
           

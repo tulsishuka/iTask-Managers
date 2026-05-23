@@ -87,7 +87,6 @@ const pillars = [
   },
 ];
 
-/* WORD ANIMATION */
 
 const titleWords = ["Global", "Accountability"];
 
@@ -123,7 +122,6 @@ const Account = () => {
   return (
     <div className="bg-[#090F0C] text-white py-24 px-6 relative overflow-hidden">
 
-      {/* BACKGROUND GLOW */}
       <motion.div
         animate={{
           opacity: [0.2, 0.5, 0.2],
@@ -139,12 +137,10 @@ const Account = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
 
-        {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
 
           <div className="max-w-xl space-y-4">
 
-            {/* WORD BY WORD TITLE */}
             <motion.h2
               variants={container}
               initial="hidden"
@@ -163,7 +159,6 @@ const Account = () => {
               ))}
             </motion.h2>
 
-            {/* DESCRIPTION */}
             <motion.p
               initial={{
                 opacity: 0,
@@ -180,14 +175,13 @@ const Account = () => {
                 duration: 0.8,
                 delay: 0.2,
               }}
-              className="text-gray-400 text-sm md:text-base font-normal leading-relaxed"
+              className="text-[#85B69D] text-sm md:text-base font-normal leading-relaxed"
             >
               We track the kinetic energy of your game and transform it into measurable
               outcomes across four primary pillars.
             </motion.p>
           </div>
 
-          {/* LINK */}
           <motion.a
             href="#report"
             initial={{
@@ -213,7 +207,6 @@ const Account = () => {
           </motion.a>
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
           {pillars.map((item, index) => (
@@ -241,7 +234,6 @@ const Account = () => {
               className=" border border-[#1E2521] rounded-2xl p-7 flex flex-col items-start justify-between min-h-[260px] shadow-lg hover:border-sky-400/20 transition-all relative overflow-hidden backdrop-blur-xl"
             >
 
-              {/* CARD GLOW */}
               <motion.div
                 animate={{
                   opacity: [0.2, 0.4, 0.2],
@@ -254,7 +246,6 @@ const Account = () => {
                 className={`absolute inset-0 bg-gradient-to-br ${item.glow} via-transparent to-transparent`}
               />
 
-              {/* FLOATING LIGHT */}
               <motion.div
                 animate={{
                   y: [0, -10, 0],
@@ -268,7 +259,6 @@ const Account = () => {
                 className="absolute -top-10 -right-10 w-32 h-32 bg-sky-400/10 rounded-full blur-3xl"
               />
 
-              {/* ICON */}
               <motion.div
                 whileHover={{
                   scale: 1.15,
@@ -341,7 +331,7 @@ const Account = () => {
                     duration: 0.8,
                     delay: 0.3,
                   }}
-                  className="text-gray-500 text-xs leading-relaxed font-normal pt-2"
+                  className="text-[#85B69D] text-xs leading-relaxed font-normal pt-2"
                 >
                   {item.desc}
                 </motion.p>

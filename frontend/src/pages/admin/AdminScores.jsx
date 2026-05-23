@@ -1,56 +1,3 @@
-// /* eslint-disable react-hooks/immutability */
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const AdminScores = () => {
-//   const [users, setUsers] = useState([]);
-//   const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     fetchScores();
-//   }, []);
-
-//   const fetchScores = async () => {
-//     const res = await axios.get(
-//       "https://givehope-platform-4.onrender.com/api/admin/users-with-scores",
-//       {
-//         headers: { Authorization: `Bearer ${token}` },
-//       }
-//     );
-
-//     setUsers(res.data.data);
-//   };
-
-//   return (
-//     <div>
-//       <h1 className="text-xl font-bold mb-6 bg-[#090F0C]">🎯 Scores</h1>
-
-//       {users.map((u) => (
-//         <div key={u._id} className="bg-white p-4 mb-4 rounded shadow">
-//           <h2 className="font-bold">{u.name}</h2>
-
-//           <div className="flex gap-2 mt-2">
-//             {u.scores.map((s) => (
-//               <span key={s._id} className="bg-black text-white px-3 py-1 rounded">
-//                 {s.value}
-//               </span>
-//             ))}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-
-
-      
-//   );
-// };
-
-// export default AdminScores;
-
-
-
-
-
 
 /* eslint-disable react-hooks/immutability */
 
@@ -83,7 +30,6 @@ const AdminScores = () => {
   return (
     <div className="bg-[#0d110e] text-[#e4e7e5] min-h-screen font-sans">
 
-      {/* HEADER */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-8">
 
         <div>
@@ -149,8 +95,7 @@ const AdminScores = () => {
         />
       </section>
 
-      {/* DESKTOP TABLE */}
-      <div className="hidden xl:block overflow-hidden rounded-3xl border border-[#1f2923] bg-[#131915] shadow-xl mb-8">
+      <div className="hidden xl:block overflow-hidden rounded-3xl border border-[#1f2923] bg-black shadow-xl mb-8">
 
         <div className="overflow-x-auto">
 
@@ -175,7 +120,6 @@ const AdminScores = () => {
                   className="border-b border-[#1f2923] hover:bg-[#161d19] transition"
                 >
 
-                  {/* USER */}
                   <td className="p-5">
                     <div className="flex items-center gap-4">
 
@@ -194,22 +138,18 @@ const AdminScores = () => {
                       </div>
                     </div>
                   </td>
-
-                  {/* TOTAL SCORES */}
                   <td>
                     <span className="text-cyan-400 font-semibold">
                       {u.scores.length} Scores
                     </span>
                   </td>
 
-                  {/* PERFORMANCE */}
                   <td>
                     <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       Active Player
                     </span>
                   </td>
 
-                  {/* SCORES */}
                   <td>
 
                     <div className="flex flex-wrap gap-2 max-w-md">
@@ -241,7 +181,6 @@ const AdminScores = () => {
         </div>
       </div>
 
-      {/* MOBILE CARDS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 xl:hidden">
 
         {users.map((u) => (
@@ -267,8 +206,6 @@ const AdminScores = () => {
                 </p>
               </div>
             </div>
-
-            {/* DETAILS */}
             <div className="mt-5 space-y-3">
 
               <InfoRow
@@ -284,7 +221,6 @@ const AdminScores = () => {
               />
             </div>
 
-            {/* SCORES */}
             <div className="mt-5">
 
               <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
@@ -317,7 +253,7 @@ const AdminScores = () => {
 };
 
 const StatsCard = ({ title, value, icon, color, bg }) => (
-  <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
+  <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
 
     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${bg}`}>
       {icon}

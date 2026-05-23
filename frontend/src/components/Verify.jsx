@@ -44,7 +44,7 @@ const Verify = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#090F0C] px-4">
 
-      {/* CARD */}
+    
       <div className="w-full max-w-md  border border-white/20 shadow-2xl rounded-3xl p-8 text-green-500">
 
         {/* TITLE */}

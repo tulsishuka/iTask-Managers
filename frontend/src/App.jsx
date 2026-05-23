@@ -7,9 +7,7 @@ import Verify from './components/Verify';
 import Login from './components/Login';
 import Forgot from './components/Forgot';
 import Subscription from './pages/Subscription';
-// import Charity from './components/Charity';
 import DashBoard from './pages/DashBoard';
-// import Score from './components/Score';
 import AdminLayout from './pages/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import AdminUsers from './pages/admin/AdminUsers';
@@ -41,6 +39,7 @@ const App = () => {
         <Route path="/Subscription" element={<Subscription />} />
             <Route path="/Dashboard" element={<DashBoard />} />
                               <Route path="/UserCharity" element={<UserCharity />} />
+                              <Route path="/UserScores" element={<UserScores />} />
 
                               <Route path="/About" element={<About />} />
 

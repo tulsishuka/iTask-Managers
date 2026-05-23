@@ -107,11 +107,8 @@ const About = () => {
   return (
     <div className="bg-[#090F0C] text-white py-24 px-6 relative overflow-hidden ">
       <div className="max-w-6xl mx-auto">
-
-        {/* HEADER */}
         <div className="text-center mb-20 space-y-4">
 
-          {/* WORD BY WORD HEADING */}
           <motion.h2
             variants={headingContainer}
             initial="hidden"
@@ -129,8 +126,6 @@ const About = () => {
               </motion.span>
             ))}
           </motion.h2>
-
-          {/* DESCRIPTION */}
           <motion.p
             initial={{
               opacity: 0,
@@ -147,13 +142,12 @@ const About = () => {
               duration: 0.8,
               delay: 0.2,
             }}
-            className="text-gray-400 text-sm md:text-base max-w-xl mx-auto font-normal leading-relaxed"
+            className="text-[#A0D1B8] text-sm md:text-base max-w-xl mx-auto font-normal leading-relaxed"
           >
             A seamless integration of sport and philanthropy, powered by cinematic technology.
           </motion.p>
         </div>
 
-        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 text-center">
 
           {workflowItems.map((item, index) => (
@@ -179,8 +173,6 @@ const About = () => {
               }}
               className="flex flex-col items-center group"
             >
-
-              {/* ICON */}
               <motion.div
                 whileHover={{
                   scale: 1.08,
@@ -192,8 +184,6 @@ const About = () => {
               >
                 {item.icon}
               </motion.div>
-
-              {/* TITLE WORD BY WORD */}
               <motion.h3
                 variants={headingContainer}
                 initial="hidden"
@@ -211,8 +201,6 @@ const About = () => {
                   </motion.span>
                 ))}
               </motion.h3>
-
-              {/* DESCRIPTION */}
               <motion.p
                 initial={{
                   opacity: 0,
@@ -229,7 +217,7 @@ const About = () => {
                   duration: 0.8,
                   delay: 0.3,
                 }}
-                className="text-gray-400 text-xs md:text-sm leading-relaxed max-w-xs font-normal"
+                className="text-[#A0D1B8] text-xs md:text-sm leading-relaxed max-w-xs font-normal"
               >
                 {item.desc}
               </motion.p>

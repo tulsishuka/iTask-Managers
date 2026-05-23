@@ -124,7 +124,7 @@ const Home = () => {
                 delay: 0.3,
               }}
               viewport={{ once: false }}
-              className="text-base md:text-lg text-gray-400 font-normal leading-relaxed mt-2"
+              className="text-base md:text-lg text-[#85B69D] font-normal leading-relaxed mt-2"
             >
               Experience the first high-stakes digital ecosystem where
               performance drives impact. Track every stroke and turn your
@@ -155,12 +155,7 @@ const Home = () => {
                 Enter the Fairway
               </button>
 
-              <button
-                onClick={() => navigate("/live-impact")}
-                className="px-7 py-3.5 bg-[#161C19] text-gray-300 rounded-xl font-semibold hover:bg-[#202924] hover:text-white transition-colors text-sm md:text-base"
-              >
-                View Live Impact
-              </button>
+             
             </motion.div>
           </motion.section>
 

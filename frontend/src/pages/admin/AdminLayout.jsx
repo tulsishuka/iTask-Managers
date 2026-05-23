@@ -15,10 +15,8 @@ const AdminLayout = () => {
   return (
     <div className="min-h-screen bg-[#0d110e] text-[#e4e7e5] flex">
 
-      {/* SIDEBAR */}
       <aside className="w-64 bg-[#131915] border-r border-[#1f2923] p-6 hidden lg:flex flex-col">
 
-        {/* LOGO / TITLE */}
         <div className="mb-10">
           <h1 className="text-2xl font-bold tracking-wide text-emerald-400">
             Admin Panel
@@ -29,7 +27,6 @@ const AdminLayout = () => {
           </p>
         </div>
 
-        {/* NAVIGATION */}
         <nav className="space-y-2">
           {menu.map((item) => {
             const isActive = location.pathname === item.path;
@@ -60,12 +57,9 @@ const AdminLayout = () => {
             );
           })}
         </nav>
-
-        {/* FOOTER */}
       
       </aside>
 
-      {/* MOBILE TOPBAR */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-[#131915] border-b border-[#1f2923] px-4 py-4 flex items-center justify-between">
 
         <div>
@@ -83,15 +77,12 @@ const AdminLayout = () => {
         </div>
       </div>
 
-      {/* PAGE CONTENT */}
       <main className="flex-1 overflow-y-auto">
 
         <div className="p-4 sm:p-6 lg:p-8 mt-20 lg:mt-0">
 
-          {/* CONTENT CARD */}
           <div className="bg-[#111613] border border-[#1b231e] rounded-3xl shadow-xl min-h-[90vh] overflow-hidden">
 
-            {/* INNER CONTENT */}
             <div className="p-4 sm:p-6 lg:p-8">
               <Outlet />
             </div>
