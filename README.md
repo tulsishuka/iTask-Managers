@@ -1,4 +1,4 @@
-# 🌍 GiveHope Platform
+# 🌍 Fairway Platform
 
 A full-stack charity + subscription platform where users can subscribe, support charities, and contribute toward a shared prize pool system.
 
