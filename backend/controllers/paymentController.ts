@@ -7,38 +7,63 @@ import PrizePool from "../models/PrizePool";
 import CharityDonation from "../models/CharityDonation";
 
 
+// export const createOrder = async (req: any, res: any) => {
+//   try {
+//     const { amount, plan } = req.body;
+//     const userId = req.user._id;
+
+//     const order = await razorpay.orders.create({
+//       amount: amount * 100,
+//       currency: "INR",
+//       receipt: `rcpt_${Date.now()}`,
+//     });
+//     console.log(order);
+
+//     await Payment.create({
+//       userId,
+//       orderId: order.id,
+//       amount,
+//       plan,
+//       status: "created",
+//     });
+//     console.log("Payment record created for order:", order.id);
+
+//     res.json({
+//       success: true,
+//       order,
+//       key: process.env.RAZORPAY_KEY_ID,
+//     });
+// console.log("Order creation response sent for order:", order.id);
+//   } catch (err: any) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+
 export const createOrder = async (req: any, res: any) => {
   try {
+
+    console.log("RAZORPAY KEY =>", process.env.RAZORPAY_KEY_ID);
+
     const { amount, plan } = req.body;
-    const userId = req.user._id;
 
     const order = await razorpay.orders.create({
       amount: amount * 100,
       currency: "INR",
       receipt: `rcpt_${Date.now()}`,
     });
-    console.log(order);
-
-    await Payment.create({
-      userId,
-      orderId: order.id,
-      amount,
-      plan,
-      status: "created",
-    });
-    console.log("Payment record created for order:", order.id);
 
     res.json({
       success: true,
       order,
       key: process.env.RAZORPAY_KEY_ID,
     });
-console.log("Order creation response sent for order:", order.id);
+
   } catch (err: any) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
-
 
 export const verifyPayment = async (req: any, res: any) => {
   try {
