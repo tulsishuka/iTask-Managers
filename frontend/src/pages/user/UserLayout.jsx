@@ -41,7 +41,6 @@ const UserLayout = () => {
         </nav>
       </aside>
 
-      {/* Page Content */}
       <main className="flex-1 overflow-y-auto">
         <Outlet />
       </main>
