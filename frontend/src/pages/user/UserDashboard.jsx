@@ -34,7 +34,7 @@ const UserDashboard = () => {
         
                 <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-100">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#39E596] to-[#2B82F6] bg-clip-text text-transparent ">
               Welcome back
             </h1>
             <p className="text-xs md:text-sm text-gray-400 mt-1">
@@ -57,7 +57,7 @@ const UserDashboard = () => {
         {/* FOUR METRICS ROW */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           
-          <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
+          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Winnings</div>
             <div className="text-2xl font-bold text-emerald-400 mt-2">₹ {data.winnings?.toLocaleString() || "0.00"}</div>
             <div className="text-[11px] text-emerald-500 font-medium mt-1 flex items-center gap-1">
@@ -66,7 +66,7 @@ const UserDashboard = () => {
           </div>
 
           {/* Card 2: Total Impact */}
-          <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
+          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Impact</div>
             <div className="text-2xl font-bold text-gray-100 mt-2">
               ₹ {((data.winnings * (data.contribution || 0)) / 100).toLocaleString() || "0.00"}
@@ -77,7 +77,7 @@ const UserDashboard = () => {
           </div>
 
           {/* Card 3: Impact Points */}
-          <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
+          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Impact Points</div>
             <div className="text-2xl font-bold text-orange-400 mt-2">8,420</div>
             <div className="text-[11px] text-orange-400/70 font-semibold mt-1 tracking-wide uppercase">
@@ -86,7 +86,7 @@ const UserDashboard = () => {
           </div>
 
           {/* Card 4: Jackpot Entries */}
-          <div className="bg-[#131915] border border-[#1f2923] p-5 rounded-2xl">
+          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
             <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Draw Participation</div>
             <div className="text-sm font-bold text-cyan-400 mt-2">{data.drawStatus}</div>
           
@@ -97,7 +97,7 @@ const UserDashboard = () => {
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           
           {/* Performance Chart Simulation Container */}
-          <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl lg:col-span-2">
+          <div className="bg-black border border-[#1f2923] p-6 rounded-2xl lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-base font-bold text-gray-200">Performance Analysis</h3>
@@ -143,7 +143,7 @@ const UserDashboard = () => {
           </div>
 
           {/* Right Status Card: Subscription Details */}
-          <div className="bg-[#131915] border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
+          <div className="bg-black border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
                 <span className="bg-[#22c55e]/10 text-emerald-400 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-md border border-emerald-500/20">
@@ -183,7 +183,7 @@ const UserDashboard = () => {
         <section>
           <h3 className="text-base font-bold text-gray-200 mb-4">Recent Activity</h3>
           
-          <div className="bg-[#131915] border border-[#1f2923] rounded-2xl divide-y divide-[#1f2923]">
+          <div className="bg-black border border-[#1f2923] rounded-2xl divide-y divide-[#1f2923]">
             
             <div className="p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
