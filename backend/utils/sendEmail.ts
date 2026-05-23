@@ -52,7 +52,8 @@ export const sendEmail = async (
         pass: process.env.EMAIL_PASS,
       },
     });
-
+console.log("USING BREVO SMTP");
+console.log(process.env.EMAIL_USER);
     await transporter.verify();
 
     console.log("SMTP VERIFIED");
