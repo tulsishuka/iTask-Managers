@@ -6,40 +6,6 @@ import { User } from "../models/userModel";
 import PrizePool from "../models/PrizePool";
 import CharityDonation from "../models/CharityDonation";
 
-
-// export const createOrder = async (req: any, res: any) => {
-//   try {
-//     const { amount, plan } = req.body;
-//     const userId = req.user._id;
-
-//     const order = await razorpay.orders.create({
-//       amount: amount * 100,
-//       currency: "INR",
-//       receipt: `rcpt_${Date.now()}`,
-//     });
-//     console.log(order);
-
-//     await Payment.create({
-//       userId,
-//       orderId: order.id,
-//       amount,
-//       plan,
-//       status: "created",
-//     });
-//     console.log("Payment record created for order:", order.id);
-
-//     res.json({
-//       success: true,
-//       order,
-//       key: process.env.RAZORPAY_KEY_ID,
-//     });
-// console.log("Order creation response sent for order:", order.id);
-//   } catch (err: any) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-
 export const createOrder = async (req: any, res: any) => {
   try {
 
@@ -47,21 +13,46 @@ export const createOrder = async (req: any, res: any) => {
 
     const { amount, plan } = req.body;
 
+    const userId = req.user._id;
+
     const order = await razorpay.orders.create({
       amount: amount * 100,
       currency: "INR",
       receipt: `rcpt_${Date.now()}`,
     });
+const savedPayment = await Payment.create({
+  userId,
+  orderId: order.id,
+  amount,
+  plan,
+  status: "created",
+});
 
-    res.json({
+console.log("SAVED PAYMENT =>", savedPayment);
+    // await Payment.create({
+    //   userId,
+    //   orderId: order.id,
+    //   amount,
+    //   plan,
+    //   status: "created",
+    // });
+
+    // console.log("Payment record created for:", order.id);
+
+    return res.json({
       success: true,
       order,
       key: process.env.RAZORPAY_KEY_ID,
     });
 
   } catch (err: any) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
+
+    console.log("CREATE ORDER ERROR =>", err);
+
+    return res.status(500).json({
+      success: false,
+      error: err.message,
+    });
   }
 };
 
@@ -84,10 +75,17 @@ console.log("Verifying payment with body:", body);
       return res.status(400).json({ message: "Invalid signature" });
     }
 console.log("Signature verified for order:", razorpay_order_id);
-    const payment = await Payment.findOne({
-      orderId: razorpay_order_id,
-      status: "created",
-    });
+    // const payment = await Payment.findOne({
+    //   orderId: razorpay_order_id,
+    //   status: "created",
+    // });
+  console.log("Searching payment for:", razorpay_order_id);
+
+const payment = await Payment.findOne({
+  orderId: razorpay_order_id,
+});
+
+console.log("FOUND PAYMENT =>", payment);
 
     if (!payment) {
       return res.status(404).json({ message: "Payment not found" });
@@ -152,3 +150,6 @@ console.log("Payment verification completed for order:", razorpay_order_id);
     return res.status(500).json({ error: err.message });
   }
 };
+
+
+
