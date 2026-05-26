@@ -24,6 +24,7 @@ import UserDashboard from './pages/user/UserDashboard';
 import UserScores from './pages/user/UserScore';
 import UserCharities from './pages/user/UserCharity';
 import UserCharity from './pages/user/UserCharity';
+import UserWinner from './pages/user/UserWinner';
 const App = () => {
   return (
     <>
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/Dashboard" element={<DashBoard />} />
                               <Route path="/UserScores" element={<UserScores />} />
       <Route path="/UserCharity" element={<UserCharity />} />
+      <Route path="/winner" element={<UserWinner />} />
 
                               <Route path="/About" element={<About />} />
 
@@ -61,6 +63,7 @@ const App = () => {
       <Route path="scores" element={<UserScores />} />
      
       <Route path="charities" element={<UserCharities />} />
+      <Route path="winner" element={<UserWinner />} />
 
     </Route>
    
