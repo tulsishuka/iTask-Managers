@@ -1,18 +1,15 @@
+
 import express from "express";
-import {  selectCharity } from "../controllers/charityController";
 import { protectedMiddleware } from "../middlewares/authMiddleware";
-import { getCharities } from "../controllers/adminController";
+import { selectCharity, updateDonationPercentage } from "../controllers/charityController";
 
 const router = express.Router();
+router.post("/select", protectedMiddleware, selectCharity);
 
-router.get("/", getCharities);
-
-router.post(
-  "/select",
+router.put(
+  "/update-percentage",
   protectedMiddleware,
-  selectCharity
+  updateDonationPercentage
 );
-
-
 
 export default router;

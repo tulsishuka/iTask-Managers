@@ -1,6 +1,4 @@
 
-
-
 import { Request, Response } from "express";
 import { User } from "../models/userModel";
 import Payment from "../models/Payment";
@@ -60,7 +58,8 @@ export const getUsers = async (req: Request, res: Response) => {
  
 
    const users = await User.find()
-    .populate("selectedCharity", "name percentage description")
+    // .populate("selectedCharity", "name percentage description")
+    .populate("selectedCharity", "name description")
     .select("-password");
 
   res.json({
@@ -94,12 +93,12 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
 
 export const addCharity = async (req: Request, res: Response) => {
   try {
-    const { name, description, percentage } = req.body;
-
+    const { name, description } = req.body;
+    // const { name, description, percentage } = req.body;
     const charity = await Charity.create({
       name,
       description,
-      percentage,
+      // percentage,
     });
 
     res.json({

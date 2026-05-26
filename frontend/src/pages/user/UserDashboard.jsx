@@ -1,97 +1,156 @@
-/* eslint-disable react-hooks/set-state-in-effect */
+
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getDashboardData } from "../../services/api";
+import { Link } from "react-router-dom";
+
 
 const UserDashboard = () => {
   const [data, setData] = useState(null);
 
+
   const fetchDashboard = async () => {
     try {
       const res = await getDashboardData();
-      setData(res.data.data);
+      const dashboard = res?.data?.data || res?.data;
+      setData(dashboard);
     } catch (error) {
-      console.error(error);
-      alert("Failed to load dashboard");
+      console.error("Dashboard error:", error);
     }
   };
+
 
   useEffect(() => {
     fetchDashboard();
   }, []);
 
+
+  
+
+
   if (!data) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0d110e] text-[#e4e7e5]">
-        <div className="animate-pulse text-emerald-400 font-medium">Loading Fairway Impact...</div>
+        <div className="animate-pulse text-emerald-400 font-medium">
+          Loading Dashboard...
+        </div>
       </div>
     );
   }
 
+
+  const scores = data.scores || [];
+
+
+  // format: 12,45,12,35
+  // const formattedScores = scores.map((s) => s.value).join(", ");
+
+
   return (
-    <div className="bg-[#0d110e] text-[#e4e7e5] flex font-sans antialiased">
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
-        
-                <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+    <div className="min-h-screen bg-[#0d110e] text-[#e4e7e5]">
+      <main className="max-w-7xl mx-auto p-6 md:p-10">
+
+        {/* HEADER */}
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#39E596] to-[#2B82F6] bg-clip-text text-transparent ">
-              Welcome back
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-[#39E596] to-[#2B82F6] bg-clip-text text-transparent">
+              Welcome Back
             </h1>
-            <p className="text-xs md:text-sm text-gray-400 mt-1">
-              Your Impact today is supporting the <span className="text-emerald-300 font-medium">{data.charity || "Oceans Cleanup Initiative"}</span>
+
+            <p className="text-sm text-gray-400 mt-2">
+              Manage your subscription, scores and participation activity.
             </p>
           </div>
-          
-          {/* Live Badge Status */}
-          <div className="flex items-center gap-3 self-start sm:self-center">
-            <div className="bg-[#131915] border border-[#212f26] px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wide uppercase">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Live Draw in 04:22:10
-            </div>
-            <button className="p-2 bg-[#131915] border border-[#212f26] rounded-full text-gray-400 hover:text-gray-200">
-              🔔
-            </button>
+
+          <div
+            className={`px-4 py-2 rounded-xl border text-xs font-bold uppercase tracking-wider
+            ${
+              data.subscriptionStatus === "active"
+                ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                : "bg-red-500/10 border-red-500/20 text-red-400"
+            }`}
+          >
+            {data.subscriptionStatus}
           </div>
         </header>
 
-        {/* FOUR METRICS ROW */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          
-          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl relative overflow-hidden">
-            <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Winnings</div>
-            <div className="text-2xl font-bold text-emerald-400 mt-2">₹ {data.winnings?.toLocaleString() || "0.00"}</div>
-            <div className="text-[11px] text-emerald-500 font-medium mt-1 flex items-center gap-1">
-              <span>↑ +12%</span> <span className="text-gray-500">from last month</span>
+        {/* TOP CARDS */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+
+          {/* Subscription */}
+          <div className="bg-black border border-[#1f2923] rounded-2xl p-5">
+            <div className="text-xs uppercase tracking-wider text-gray-500">
+              Subscription
+            </div>
+
+            <div className="mt-3 text-xl font-bold text-emerald-400">
+              {data.subscriptionStatus}
+            </div>
+
+            <div className="mt-2 text-xs text-gray-400">
+              Renewal Date
+            </div>
+
+            <div className="text-sm text-gray-200 mt-1">
+              {data.subscriptionEnd
+                ? new Date(data.subscriptionEnd).toLocaleDateString()
+                : "N/A"}
             </div>
           </div>
 
-          {/* Card 2: Total Impact */}
-          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
-            <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Impact</div>
-            <div className="text-2xl font-bold text-gray-100 mt-2">
-              ₹ {((data.winnings * (data.contribution || 0)) / 100).toLocaleString() || "0.00"}
+          {/* Charity */}
+          <div className="bg-black border border-[#1f2923] rounded-2xl p-5">
+            <div className="text-xs uppercase text-gray-500">
+              Charity Contribution
             </div>
-            <div className="text-[11px] text-emerald-400/80 font-medium mt-1">
-              🌱 {data.contribution}% Charities Funded
-            </div>
-          </div>
 
-          {/* Card 3: Impact Points */}
-          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
-            <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Impact Points</div>
-            <div className="text-2xl font-bold text-orange-400 mt-2">8,420</div>
-            <div className="text-[11px] text-orange-400/70 font-semibold mt-1 tracking-wide uppercase">
-              🏆 Tier: Gold Ambassador
+            
+
+            <div className="text-xl font-semibold text-[#BDFFDE] mt-2">
+              {data.charity || "Greener Fairways"}
             </div>
           </div>
 
-          {/* Card 4: Jackpot Entries */}
-          <div className="bg-black border border-[#1f2923] p-5 rounded-2xl">
-            <div className="text-xs font-medium text-gray-400 uppercase tracking-wider">Draw Participation</div>
-            <div className="text-sm font-bold text-cyan-400 mt-2">{data.drawStatus}</div>
-          
+          {/* Draws Entered */}
+          <div className="bg-black border border-[#1f2923] rounded-2xl p-5">
+            <div className="text-xs uppercase tracking-wider text-gray-500">
+              Draws Entered
+            </div>
+
+            <div className="text-3xl font-bold text-cyan-400 mt-4">
+              {scores.length}
+            </div>
+
+            <div className="text-xs text-gray-500 mt-2">
+              Total participated draws
+            </div>
           </div>
 
+          {/* Total Impact Points */}
+          <div className="bg-black border border-[#1f2923] p-6 rounded-2xl">
+            <h3 className="text-lg font-bold mb-4">
+              Recent Activity
+            </h3>
+
+            {scores.length === 0 ? (
+              <p className="text-gray-500">No scores yet</p>
+            ) : (
+              scores.slice(0, 5).map((s) => (
+                <div
+                  key={s._id}
+                  className="flex justify-between border-b border-gray-800 py-2"
+                >
+                  <span className="text-emerald-400">
+                    {s.value}
+                  </span>
+                  <span className="text-gray-500 text-xs">
+                    {new Date(s.date).toLocaleDateString()}
+                  </span>
+                </div>
+              ))
+            )}
+          </div>
         </section>
 
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -179,7 +238,7 @@ const UserDashboard = () => {
 
         </section>
 
-        {/* RECENT ACTIVITY LOG SECTION */}
+      
         <section>
           <h3 className="text-base font-bold text-gray-200 mb-4">Recent Activity</h3>
           
@@ -216,10 +275,10 @@ const UserDashboard = () => {
 
         
         </section>
-
       </main>
     </div>
   );
 };
+
 
 export default UserDashboard;

@@ -1,11 +1,10 @@
 
-
 import { Response } from "express";
 import { AuthRequest } from "../interfaces/authRequest.interface";
 import { User } from "../models/userModel";
 import Charity from "../models/Charity";
 
-
+// ✅ Select Charity (already exists but cleaned)
 export const selectCharity = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user?._id;
@@ -33,18 +32,52 @@ export const selectCharity = async (req: AuthRequest, res: Response) => {
     return res.json({
       success: true,
       message: "Charity selected successfully",
+      data: {
+        selectedCharity: charity.name,
+        donationPercentage: user.donationPercentage,
+      },
     });
-
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
   }
 };
 
+export const updateDonationPercentage = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+    const userId = req.user?._id;
+    const { donationPercentage } = req.body;
 
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
+    if (
+      donationPercentage < 0 ||
+      donationPercentage > 100 ||
+      donationPercentage === undefined
+    ) {
+      return res.status(400).json({ message: "Invalid percentage" });
+    }
 
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        donationPercentage,
+      },
+      { new: true }
+    ).select("-password");
 
-
-
-
+    return res.json({
+      success: true,
+      message: "Donation percentage updated",
+      data: user?.donationPercentage,
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

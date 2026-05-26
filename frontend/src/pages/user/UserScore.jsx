@@ -16,24 +16,41 @@ const UserScore = () => {
   const token = localStorage.getItem("token");
 
   // FETCH SCORES
-  const fetchScores = async () => {
-    try {
-      const res = await fetch(
-        "http://localhost:5000/api/score",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  // const fetchScores = async () => {
+  //   try {
+  //     const res = await fetch(
+  //       "http://localhost:5000/api/score",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
 
-      const result = await res.json();
+  //     const result = await res.json();
 
-      setScores(result.data || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     setScores(result.data || []);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+const fetchScores = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/score", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = await res.json();
+
+    setScores(result.data || []);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
   // ADD SCORE
   const addScore = async () => {

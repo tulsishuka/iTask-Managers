@@ -5,85 +5,51 @@ import Score from "../models/Score";
 import Payment from "../models/Payment";
 import Result from "../models/Result";
 import Draw from "../models/Draw";
-
-interface AuthRequest extends Request {
-  user?: any;
-}
-
-interface PopulatedCharity {
-  _id: string;
-  name: string;
-}
-
-interface IUserWithCharity {
-  subscriptionStatus?: string;
-  subscriptionPlan?: string;
-  subscriptionEnd?: Date;
-  donationPercentage?: number;
-
-  selectedCharity?: PopulatedCharity;
-}
-
-export const getDashboard = async (req: AuthRequest, res: Response) => {
+export const getDashboard = async (req: any, res: Response) => {
   try {
-    const userId = req.user?._id;
+    const userId = req.user._id;
 
     const user = await User.findById(userId)
       .populate("selectedCharity", "name")
-      .lean() as IUserWithCharity | null;
+      .lean();
 
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
+    const scores = await Score.find({ userId }).sort({
+      createdAt: -1,
+    });
 
-    const [scores, payments, results, latestDraw] = await Promise.all([
-      Score.find({ userId }).sort({ createdAt: -1 }).limit(5),
-      Payment.find({ userId }).sort({ createdAt: -1 }),
-      Result.find({ userId }).sort({ createdAt: -1 }),
-      Draw.findOne({ isPublished: true }).sort({ createdAt: -1 }),
-    ]);
-
-    const totalWinnings = results.reduce(
-      (sum, r) => sum + (r.winnings || 0),
+    const totalScore = scores.reduce(
+      (sum, s) => sum + (s.value || 0),
       0
     );
+
+    const averageScore =
+      scores.length > 0 ? totalScore / scores.length : 0;
+
+    const highestScore =
+      scores.length > 0 ? Math.max(...scores.map((s) => s.value)) : 0;
 
     return res.json({
       success: true,
       data: {
-        subscriptionStatus: user.subscriptionStatus || "inactive",
-        subscriptionPlan: user.subscriptionPlan || null,
-        subscriptionEnd: user.subscriptionEnd || null,
-
-        charity: user.selectedCharity?.name || "Not Selected",
-
-        contribution: user.donationPercentage || 0,
-        winnings: totalWinnings,
-
-        drawStatus:
-          results.length > 0 ? "Participated" : "Not Participated",
+        subscriptionStatus: user?.subscriptionStatus || "inactive",
+        subscriptionEnd: user?.subscriptionEnd || null,
+        charity: (user?.selectedCharity as any)?.name || "Not Selected",
+        contribution: user?.donationPercentage || 0,
 
         scores,
-        payments,
-        results,
-        latestDraw,
+
+        totalScore,
+        averageScore,
+        highestScore,
       },
     });
-
   } catch (error) {
-    console.error("Dashboard Error:", error);
-
     return res.status(500).json({
       success: false,
-      message: "Server error",
+      message: "Dashboard error",
     });
   }
 };
-
-
 
 export const getMe = async (req: any, res: any) => {
   try {
@@ -107,4 +73,3 @@ export const getMe = async (req: any, res: any) => {
     });
   }
 };
-
