@@ -14,7 +14,11 @@ import path from "path";
 const app = express();
 
 app.use(express.json());
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads"))
+);
 const allowedOrigins = [
   "http://localhost:5000",
   "http://localhost:5173",

@@ -124,7 +124,8 @@ console.log("Razorpay instance cleared");
 
             console.log("VERIFY RESPONSE:", verifyData);
 
-            if (verifyData.success) {
+            // if (verifyData.success) {
+            if (verifyRes.ok && verifyData.success) {
               alert("Payment Successful 🎉");
 
               navigate("/usercharity");
@@ -179,30 +180,6 @@ console.log(window.Razorpay);
     console.log(window.Razorpay);
   };
 
- useEffect(() => {
-  const checkUser = async () => {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(
-      "https://givehope-platform-4.onrender.com/api/user/me",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    const user = data.user;
-
-    if (isSubscriptionActive(user)) {
-      navigate("/user");
-    }
-  };
-
-  checkUser();
-}, []);
 
   return (
     <div className="min-h-screen bg-[#06110D] text-white px-4 py-6 flex items-center justify-center overflow-hidden">

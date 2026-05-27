@@ -12,8 +12,10 @@ export const createOrder = async (req: any, res: any) => {
     console.log("RAZORPAY KEY =>", process.env.RAZORPAY_KEY_ID);
 
     const { amount, plan } = req.body;
-
     const userId = req.user._id;
+
+console.log("CREATE ORDER USER =>", req.user);
+console.log("CREATE ORDER BODY =>", req.body);
 
     const order = await razorpay.orders.create({
       amount: amount * 100,
@@ -65,7 +67,10 @@ export const verifyPayment = async (req: any, res: any) => {
       return res.status(400).json({ message: "Invalid signature" });
     }
 
-
+// const payment = await Payment.findOne({
+//   orderId: razorpay_order_id,
+//   userId: req.user._id,
+// });
 const payment = await Payment.findOne({
   orderId: razorpay_order_id,
 });
@@ -108,8 +113,9 @@ console.log("Prize pool updated for month:", month, "with amount:", prizeAmount)
         paymentId: razorpay_payment_id,
         amount: charityAmount,
       });
+    
     }
-console.log("Charity donation recorded for user:", user._id, "amount:", charityAmount);
+
     await User.findByIdAndUpdate(user._id, {
       subscriptionStatus: "active",
       subscriptionPlan: payment.plan,
@@ -118,6 +124,9 @@ console.log("Charity donation recorded for user:", user._id, "amount:", charityA
         Date.now() + 30 * 24 * 60 * 60 * 1000
       ),
     });
+
+  
+
 console.log("User subscription updated for user:", user._id, "plan:", payment.plan);
     return res.json({
       success: true,

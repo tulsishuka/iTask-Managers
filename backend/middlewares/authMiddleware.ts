@@ -17,6 +17,7 @@ export const protectedMiddleware = async (
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "No token provided" });
     }
+console.log("AUTH HEADER =>", req.headers.authorization);
 
     const token = authHeader.split(" ")[1];
 
@@ -24,6 +25,7 @@ export const protectedMiddleware = async (
       token,
       process.env.JWT_SECRET as string
     );
+console.log("TOKEN =>", token);
 
     const user = await User.findById(decoded.id).select("-password");
 
@@ -34,6 +36,8 @@ export const protectedMiddleware = async (
     req.user = user;
 
     next();
+    console.log("DECODED =>", decoded);
+console.log("AUTH USER =>", user);
 
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
