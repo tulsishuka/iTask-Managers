@@ -1,6 +1,6 @@
 
 /* eslint-disable no-unused-vars */
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../services/api";
 import UserCharity from "./user/UserCharity";
@@ -44,11 +44,9 @@ const Subscription = () => {
 
       setLoadingPlan(selectedPlan);
 
-      console.log("Initiating payment for:", selectedPlan);
 
       const amount = plans[selectedPlan].price;
 
-      console.log("Creating order for amount:", amount);
 
       const { data } = await createOrder({
         amount,
@@ -119,8 +117,7 @@ console.log("Razorpay instance cleared");
                 body: JSON.stringify(response),
               }
             );
-console.log("KEY USED IN FRONTEND =>", data.key);
-console.log("ORDER ID =>", data.order.id);
+
 
             const verifyData = await verifyRes.json();
 
@@ -136,7 +133,6 @@ console.log("ORDER ID =>", data.order.id);
               );
             }
           } catch (err) {
-            console.log("Verification Error:", err);
 
             alert("Verification failed");
           } finally {
@@ -178,6 +174,29 @@ console.log(window.Razorpay);
     console.log("makePayment function completed for:", selectedPlan);
     console.log(window.Razorpay);
   };
+
+  useEffect(() => {
+  const checkUser = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      "https://givehope-platform-4.onrender.com/api/user/me",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.user.subscriptionStatus === "active") {
+      navigate("/user"); // or dashboard
+    }
+  };
+
+  checkUser();
+}, []);
 
   return (
     <div className="min-h-screen bg-[#06110D] text-white px-4 py-6 flex items-center justify-center overflow-hidden">
