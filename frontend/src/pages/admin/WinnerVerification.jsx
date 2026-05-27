@@ -68,7 +68,7 @@ const WinnerVerification = () => {
 
           <div
             key={r._id}
-            className="bg-[#131915] border border-[#2a2a2a] rounded-3xl p-6"
+            className="bg-black border border-[#2a2a2a] rounded-3xl p-6"
           >
 
             <div className="flex justify-between items-center">
