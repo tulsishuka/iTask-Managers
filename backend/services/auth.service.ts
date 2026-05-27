@@ -44,7 +44,6 @@ export const verifyOtp = async (email: string, otp: string) => {
   return user;
 };
 
-// Login
 export const loginUser = async (email: string, password: string) => {
   const user = await User.findOne({ email });
   if (!user || !user.isVerified) throw new AppError("Invalid credentials", 401);

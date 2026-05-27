@@ -59,7 +59,6 @@ const SignUp = () => {
 
     <section className="lg:col-span-6 flex flex-col justify-center max-w-xl gap-8">
 
-  {/* TOP CONTENT */}
   <div className="space-y-4">
     
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#141A17] border border-[#1F2823] text-[11px] tracking-[0.2em] uppercase text-[#3EE59D] font-bold w-fit">
@@ -81,7 +80,6 @@ const SignUp = () => {
     </p>
   </div>
 
-  {/* FEATURE CARDS */}
   <div className="space-y-4">
 
     <div className="flex items-start gap-4 p-4 rounded-2xl border border-[#1C2420] bg-black backdrop-blur-sm">
@@ -139,13 +137,11 @@ const SignUp = () => {
 
       <div className="relative w-full max-w-[500px] ">
 
-        {/* Glow */}
+      
         <div className="absolute inset-0  blur-[80px] rounded-[40px]" />
 
-        {/* Card */}
         <div className="relative bg-black  border border-[#1F2723] rounded-[32px] p-8 md:p-10 shadow-[0_0_60px_rgba(0,0,0,0.4)] backdrop-blur-2xl">
 
-          {/* Top */}
           <div className="flex items-center justify-between mb-10">
 
             <div className="flex items-center gap-2">
@@ -166,7 +162,6 @@ const SignUp = () => {
             </span>
           </div>
 
-          {/* Title */}
           <div className="space-y-2 mb-8">
 
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
@@ -178,7 +173,6 @@ const SignUp = () => {
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full Name"
@@ -187,7 +181,6 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <input
                 type="email"
@@ -200,7 +193,6 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <input
                 type="password"
@@ -213,7 +205,6 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}

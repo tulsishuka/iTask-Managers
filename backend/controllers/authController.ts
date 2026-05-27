@@ -54,7 +54,6 @@ export const login = async (req: Request, res: Response) => {
     token,
     subscriptionStatus: user.subscriptionStatus,
 
-    // 🔥 ADD THIS (CRITICAL FIX)
     user: {
       id: user._id,
       name: user.name,

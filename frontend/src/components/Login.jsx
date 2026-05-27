@@ -58,7 +58,6 @@ const Login = () => {
 
       <div className="relative z-10 w-full max-w-md">
 
-        {/* Logo */}
         <div className="text-center mb-8">
         
 
@@ -67,10 +66,8 @@ const Login = () => {
           </p>
         </div>
 
-        {/* Card */}
         <div className="backdrop-blur-xl bg-black  border border-white/[0.08] rounded-3xl p-8 shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
 
-          {/* Heading */}
           <div className="mb-8">
             <h2 className="text-3xl font-bold tracking-tight text-[#C9FCE1]">
               Welcome Back
@@ -81,10 +78,9 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Form */}
+       
           <form  onSubmit={handleSubmit} className="space-y-5">
 
-            {/* Email */}
             <div>
               <label className="block mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
                 Email Address
@@ -92,7 +88,6 @@ const Login = () => {
 
               <div className="relative group">
 
-                {/* Email Icon */}
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#3EE59D] transition">
                   <svg
                     className="w-5 h-5"
@@ -121,7 +116,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
@@ -138,7 +132,6 @@ const Login = () => {
 
               <div className="relative group">
 
-                {/* Lock Icon */}
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-[#3EE59D] transition">
                   <svg
                     className="w-5 h-5"
@@ -165,7 +158,6 @@ const Login = () => {
                   className="w-full bg-[#0B100E] border border-[#1E2722] rounded-2xl py-4 pl-12 pr-20 text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#3EE59D] focus:ring-4 focus:ring-[#3EE59D]/10 transition-all"
                 />
 
-                {/* Show Hide Button */}
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -176,7 +168,6 @@ const Login = () => {
               </div>
             </div>
 
-            {/* Login Button */}
             <button
               type="submit"
               className="w-full mt-2 bg-[#3EE59D] hover:bg-[#34d18d] text-gray-700 font-black tracking-[0.2em] uppercase text-xs py-4 rounded-2xl transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-[0_10px_30px_rgba(62,229,157,0.25)]"
@@ -185,7 +176,6 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Divider */}
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-[#1B2420]" />
@@ -198,7 +188,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Footer */}
           <div className="text-center text-sm text-gray-400 space-y-3">
 
             <p>

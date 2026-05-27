@@ -180,7 +180,6 @@ const AdminUsers = () => {
                     </div>
                   </td>
 
-                  {/* STATUS */}
                   <td>
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold border
@@ -194,22 +193,18 @@ const AdminUsers = () => {
                     </span>
                   </td>
 
-                  {/* PLAN */}
                   <td className="text-gray-300">
                     {u.subscriptionPlan || "-"}
                   </td>
 
-                  {/* CHARITY */}
                   <td className="text-gray-300">
                     {u.selectedCharity?.name || "Not Selected"}
                   </td>
 
-                  {/* DONATION */}
                   <td className="text-emerald-400 font-semibold">
                     {u.donationPercentage || 0}%
                   </td>
 
-                  {/* ACTIONS */}
                   <td>
 
                     <div className="flex items-center gap-3">
@@ -244,7 +239,6 @@ const AdminUsers = () => {
         </div>
       </div>
 
-      {/* MOBILE CARDS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 xl:hidden">
 
         {users.map((u) => (
@@ -253,7 +247,6 @@ const AdminUsers = () => {
             className="bg-[#131915] border border-[#1f2923] rounded-2xl p-5"
           >
 
-            {/* TOP */}
             <div className="flex items-start justify-between gap-4">
 
               <div className="flex items-center gap-3">

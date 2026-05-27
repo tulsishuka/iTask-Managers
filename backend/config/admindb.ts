@@ -6,12 +6,10 @@ import { User } from "../models/userModel";
 const createAdmin = async () => {
   try {
     await mongoose.connect(MONGO_URI);
-    console.log("✅ DB Connected");
 
     const existingAdmin = await User.findOne({ email: "admin@gmail.com" });
 
     if (existingAdmin) {
-      console.log("⚠️ Admin already exists");
       process.exit();
     }
 
@@ -26,7 +24,6 @@ const createAdmin = async () => {
       subscriptionStatus: "active",
     });
 
-    console.log("✅ Admin created successfully");
     process.exit();
 
   } catch (error) {

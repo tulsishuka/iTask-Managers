@@ -31,10 +31,8 @@ const Subscription = () => {
   };
 
   const makePayment = async (selectedPlan) => {
-    // prevent double click
     if (lockRef.current) return;
 
-    // token check
     if (!token) {
       alert("Please login again");
       navigate("/login");
@@ -52,7 +50,6 @@ const Subscription = () => {
 
       console.log("Creating order for amount:", amount);
 
-      // create order
       const { data } = await createOrder({
         amount,
         plan: selectedPlan,
@@ -64,7 +61,6 @@ const Subscription = () => {
         throw new Error("Order ID missing");
       }
 
-      // clear previous instance
       if (razorRef.current) {
         razorRef.current.close?.();
         razorRef.current = null;
@@ -157,7 +153,6 @@ console.log("Razorpay options prepared:", options);
    
       const rzp = new window.Razorpay(options);
 console.log(window.Razorpay);
-      // payment failed listener
       rzp.on("payment.failed", function (response) {
         console.log("PAYMENT FAILED:", response.error);
 
@@ -204,7 +199,6 @@ console.log(window.Razorpay);
           </p>
         </div>
 
-        {/* CARDS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-5xl">
 
           {Object.keys(plans).map((key) => (

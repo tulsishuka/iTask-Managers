@@ -2,10 +2,13 @@
 import { Request, Response } from "express";
 import Score from "../models/Score";
 
-// ADD SCORE
+
+
 export const addScore = async (req: any, res: Response) => {
   try {
-    const { value } = req.body;
+
+    const { value, date } = req.body;
+
     const userId = req.user._id;
 
     if (!value || value < 1 || value > 45) {
@@ -15,16 +18,27 @@ export const addScore = async (req: any, res: Response) => {
       });
     }
 
-    // daily limit
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    if (!date) {
+      return res.status(400).json({
+        success: false,
+        message: "Date is required",
+      });
+    }
 
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    const selectedDate = new Date(date);
+
+    const startDay = new Date(selectedDate);
+    startDay.setHours(0, 0, 0, 0);
+
+    const endDay = new Date(selectedDate);
+    endDay.setHours(23, 59, 59, 999);
 
     const existing = await Score.findOne({
       userId,
-      date: { $gte: today, $lt: tomorrow },
+      date: {
+        $gte: startDay,
+        $lte: endDay,
+      },
     });
 
     if (existing) {
@@ -34,25 +48,36 @@ export const addScore = async (req: any, res: Response) => {
       });
     }
 
+    // KEEP ONLY LATEST 5 SCORES
+    const userScores = await Score.find({ userId }).sort({
+      date: 1,
+    });
+
+    if (userScores.length >= 5) {
+      await Score.findByIdAndDelete(userScores[0]._id);
+    }
+
     const newScore = await Score.create({
       userId,
       value,
-      date: new Date(),
+      date: selectedDate,
     });
 
     return res.json({
       success: true,
       data: newScore,
     });
+
   } catch (error) {
+
     return res.status(500).json({
       success: false,
       message: "Error adding score",
     });
+
   }
 };
 
-// GET SCORES
 export const getScores = async (req: any, res: Response) => {
   try {
     const scores = await Score.find({ userId: req.user._id }).sort({

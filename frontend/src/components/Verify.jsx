@@ -46,8 +46,6 @@ const Verify = () => {
 
     
       <div className="w-full max-w-md  border border-white/20 shadow-2xl rounded-3xl p-8 text-green-500">
-
-        {/* TITLE */}
         <h2 className="text-3xl font-bold text-center text-[#C9FCE1]">
           Verify Your Account
         </h2>

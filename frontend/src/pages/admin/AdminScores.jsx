@@ -189,7 +189,6 @@ const AdminScores = () => {
             className="bg-[#131915] border border-[#1f2923] rounded-2xl p-5"
           >
 
-            {/* TOP */}
             <div className="flex items-center gap-4">
 
               <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold text-lg">

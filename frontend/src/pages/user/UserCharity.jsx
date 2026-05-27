@@ -22,13 +22,12 @@ import {
 const UserCharity = () => {
   const [charities, setCharities] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [percentage, setPercentage] = useState(0); // ✅ slider state
+  const [percentage, setPercentage] = useState(0); 
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   const navigate = useNavigate();
 
 
-  // Ensure these keys EXACTLY match c.name from the API (case-sensitive)
   const charityImages = {
     "Education For All": "/images/education.webp",
     "Village Growth Mission": "/images/village.webp",
@@ -44,7 +43,6 @@ const UserCharity = () => {
         const data = res.data.data || [];
         setCharities(data);
 
-        // Debug: check exact charity names from API
         console.log("Charity names from API:", data.map(c => c.name));
       } catch (err) {
         console.log("Fetch error:", err);
@@ -58,7 +56,7 @@ const UserCharity = () => {
 
   const handleSelect = (charity) => {
     setSelected(charity);
-    setPercentage(charity.percentage ?? 0); // ✅ init slider with charity's percentage
+    setPercentage(charity.percentage ?? 0); 
     setSaved(false);
   };
 
@@ -88,7 +86,7 @@ const UserCharity = () => {
         "https://givehope-platform-4.onrender.com/api/charity/select",
         {
           charityId: selected._id,
-          percentage: percentage, // ✅ use slider value
+          percentage: percentage, 
         },
         {
           headers: {
@@ -250,7 +248,6 @@ const UserCharity = () => {
         </div>
 
 
-        {/* CARD 2 */}
         <div className="bg-black border border-[#1B231E] p-5 sm:p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-between">
           <div className="w-10 h-10 bg-[#1B2D24] border border-[#254234] rounded-xl flex items-center justify-center text-[#20E49B]">
             <Leaf size={20} />
@@ -321,7 +318,6 @@ const UserCharity = () => {
               const isSelectedCharity = selected?._id === c._id;
 
 
-              // Debug log for image mapping
               console.log("Charity name:", c.name, "Mapped image:", charityImages[c.name]);
 
 
@@ -344,7 +340,7 @@ const UserCharity = () => {
                     <img
                       src={
                         charityImages[c.name] ||
-                        "/images/education.webp" // ✅ real fallback image file
+                        "/images/education.webp" 
                       }
                       alt={c.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -384,11 +380,10 @@ const UserCharity = () => {
                     </div>
 
 
-                    {/* ✅ SLIDER ONLY FOR SELECTED CHARITY */}
                     {isSelectedCharity && (
                       <div
                         className="pt-4 border-t border-[#1B231E]"
-                        onClick={(e) => e.stopPropagation()} // 🔥 prevent card click
+                        onClick={(e) => e.stopPropagation()} 
                       >
                         <label className="text-xs text-gray-400 block mb-2">
                           Adjust Percentage

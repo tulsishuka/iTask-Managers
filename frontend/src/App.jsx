@@ -25,6 +25,8 @@ import UserScores from './pages/user/UserScore';
 import UserCharities from './pages/user/UserCharity';
 import UserCharity from './pages/user/UserCharity';
 import UserWinner from './pages/user/UserWinner';
+import WinnerVerification from './pages/admin/WinnerVerification';
+import UserResults from './pages/user/UserResults';
 const App = () => {
   return (
     <>
@@ -53,6 +55,8 @@ const App = () => {
       <Route path="draw" element={<AdminDraw />} />
       <Route path="winners" element={<AdminWinners />} />
       <Route path="charities" element={<AdminCharities />} />
+      <Route path="charities" element={<AdminCharities />} />
+      <Route path="winnerverification" element={<WinnerVerification />} />  
 
     </Route>
 
@@ -64,6 +68,8 @@ const App = () => {
      
       <Route path="charities" element={<UserCharities />} />
       <Route path="winner" element={<UserWinner />} />
+            <Route path="winner" element={<UserWinner />} />
+      <Route path="results" element={<UserResults />} />
 
     </Route>
    

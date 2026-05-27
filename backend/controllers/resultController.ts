@@ -1,71 +1,128 @@
+
 import { Request, Response } from "express";
-import Results from "../models/Results";
 import Result from "../models/Result";
 
+export const uploadProof = async (
+  req: any,
+  res: Response
+) => {
+  try {
 
-export const getAllResults = async (req: Request, res: Response) => {
+    const result = await Result.findById(
+      req.params.resultId
+    );
 
+    if (!result) {
+      return res.status(404).json({
+        message: "Result not found",
+      });
+    }
+
+    result.proofImage = req.file.filename;
+
+    result.verificationStatus = "pending";
+
+    await result.save();
+
+    return res.json({
+      success: true,
+      message: "Proof uploaded successfully",
+      result,
+    });
+
+  } catch (error: any) {
+
+    return res.status(500).json({
+      error: error.message,
+    });
+
+  }
+};
+
+
+export const verifyWinner = async (
+  req: any,
+  res: Response
+) => {
 
   try {
+
+    const { status } = req.body;
+
+    const result = await Result.findByIdAndUpdate(
+      req.params.id,
+      {
+        verificationStatus: status,
+      },
+      { new: true }
+    );
+
+    return res.json({
+      success: true,
+      result,
+    });
+
+  } catch (error: any) {
+
+    return res.status(500).json({
+      error: error.message,
+    });
+
+  }
+
+};
+
+
+
+export const getMyResults = async (
+  req: any,
+  res: Response
+) => {
+
+  try {
+
+    const results = await Result.find({
+      userId: req.user._id,
+    })
+      .populate("drawId")
+      .sort({ createdAt: -1 });
+
+    return res.json({
+      success: true,
+      results,
+    });
+
+  } catch (error: any) {
+
+    return res.status(500).json({
+      error: error.message,
+    });
+
+  }
+
+};
+
+export const getAllResults = async (
+  req: Request,
+  res: Response
+) => {
+
+  try {
+
     const results = await Result.find()
       .populate("userId", "name email")
       .sort({ createdAt: -1 });
 
-    res.json({
+    return res.json({
       success: true,
-      data: results,
+      results,
     });
 
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching results" });
-  }
-};
+  } catch (error: any) {
 
-
-
-export const verifyWinner = async (req: Request, res: Response) => {
-  try {
-    const { resultId } = req.params;
-
-    const result = await Results.findById(resultId);
-
-    if (!result) {
-      return res.status(404).json({ message: "Result not found" });
-    }
-
-    result.status = "verified";
-    await result.save();
-
-    res.json({
-      success: true,
-      message: "Winner verified successfully",
-      data: result,
+    return res.status(500).json({
+      error: error.message,
     });
 
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const rejectWinner = async (req: Request, res: Response) => {
-  try {
-    const { resultId } = req.params;
-
-    const result = await Results.findById(resultId);
-
-    if (!result) {
-      return res.status(404).json({ message: "Result not found" });
-    }
-
-    result.status = "rejected";
-    await result.save();
-
-    res.json({
-      success: true,
-      message: "Winner rejected",
-    });
-
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
   }
 };

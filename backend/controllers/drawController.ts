@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import Draw from "../models/Draw";
 import Result from "../models/Result";
 import Score from "../models/Score";
-import { Document, DefaultSchemaOptions, Types } from "mongoose";
 
 
 
@@ -44,7 +43,8 @@ export const createDraw = async (req: Request, res: Response) => {
 
 export const runDraw = async (req: Request, res: Response) => {
   try {
-    const numbers = generateNumbers();
+    // const numbers = generateNumbers();
+    const numbers = [10, 20, 30, 40, 45];
 
     const draw = await Draw.create({
       numbers,
@@ -56,7 +56,7 @@ export const runDraw = async (req: Request, res: Response) => {
     const userMap: any = {};
     const results: any[] = []; 
 
-    // GROUP USERS
+
     allScores.forEach((s: any) => {
       if (!userMap[s.userId]) {
         userMap[s.userId] = [];
@@ -64,7 +64,6 @@ export const runDraw = async (req: Request, res: Response) => {
       userMap[s.userId].push(s.value);
     });
 
-    // LOOP USERS
     for (let userId in userMap) {
       const userNumbers = userMap[userId];
 
@@ -94,7 +93,7 @@ export const runDraw = async (req: Request, res: Response) => {
         winnings,
       });
 
-      results.push(result); // ✅ ADD TO ARRAY
+      results.push(result);
     }
 
     const populatedResults = await Result.find({ drawId: draw._id })
@@ -104,7 +103,7 @@ export const runDraw = async (req: Request, res: Response) => {
       success: true,
       message: "Draw executed successfully",
       draw,
-      results: populatedResults, // ✅ RETURN RESULTS
+      results: populatedResults, 
     });
 
   } catch (error: any) {

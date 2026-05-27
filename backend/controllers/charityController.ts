@@ -3,9 +3,7 @@ import { Response } from "express";
 import { AuthRequest } from "../interfaces/authRequest.interface";
 import { User } from "../models/userModel";
 import Charity from "../models/Charity";
-import { Document, DefaultSchemaOptions, Types } from "mongoose";
 
-// ✅ Select Charity (already exists but cleaned)
 export const selectCharity = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user?._id;

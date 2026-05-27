@@ -8,14 +8,12 @@ const UserLayout = () => {
     { name: "Dashboard", path: "/user" },
     { name: "Score Entry", path: "/user/scores" },
     { name: "Charities", path:"/user/charities" },
-     { name: "Winner", path:"/user/winner" },
+      { name: "Results", path:"/user/results" },
   ];
 
   return (
     <div className="min-h-screen bg-[#0d110e] text-[#e4e7e5] flex">
-      
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#131915] border-r border-[#1f2923] p-6 hidden lg:flex flex-col">
+            <aside className="w-64 bg-[#131915] border-r border-[#1f2923] p-6 hidden lg:flex flex-col">
         <nav className="space-y-2">
           {menuItems.map((item) => (
             <Link key={item.path} to={item.path}>

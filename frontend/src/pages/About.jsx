@@ -71,7 +71,6 @@ const workflowItems = [
   },
 ];
 
-/* ---------------- WORD ANIMATION ---------------- */
 
 const headingWords = ["Precision", "Flow"];
 

@@ -29,15 +29,6 @@ const savedPayment = await Payment.create({
 });
 
 console.log("SAVED PAYMENT =>", savedPayment);
-    // await Payment.create({
-    //   userId,
-    //   orderId: order.id,
-    //   amount,
-    //   plan,
-    //   status: "created",
-    // });
-
-    // console.log("Payment record created for:", order.id);
 
     return res.json({
       success: true,
@@ -65,7 +56,6 @@ export const verifyPayment = async (req: any, res: any) => {
     } = req.body;
 
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
-console.log("Verifying payment with body:", body);
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
       .update(body)
@@ -74,12 +64,7 @@ console.log("Verifying payment with body:", body);
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({ message: "Invalid signature" });
     }
-console.log("Signature verified for order:", razorpay_order_id);
-    // const payment = await Payment.findOne({
-    //   orderId: razorpay_order_id,
-    //   status: "created",
-    // });
-  console.log("Searching payment for:", razorpay_order_id);
+
 
 const payment = await Payment.findOne({
   orderId: razorpay_order_id,
@@ -90,7 +75,6 @@ console.log("FOUND PAYMENT =>", payment);
     if (!payment) {
       return res.status(404).json({ message: "Payment not found" });
     }
-console.log("Payment record found for order:", razorpay_order_id);
     payment.status = "paid";
     payment.paymentId = razorpay_payment_id;
     await payment.save();
@@ -100,7 +84,6 @@ console.log("Payment record found for order:", razorpay_order_id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-console.log("User found for order:", razorpay_order_id);
     const charityPercent = user.donationPercentage || 0;
 
     const charityAmount = (payment.amount * charityPercent) / 100;

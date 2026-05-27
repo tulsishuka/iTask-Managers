@@ -3,10 +3,34 @@
 import React, { useEffect, useState } from "react";
 import { getDashboardData } from "../../services/api";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 
 const UserDashboard = () => {
   const [data, setData] = useState(null);
+  const [results, setResults] = useState([]);
+
+
+
+const fetchResults = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await axios.get(
+      "https://givehope-platform-4.onrender.com/api/results/my-results",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setResults(res.data.results);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
   const fetchDashboard = async () => {
@@ -24,7 +48,10 @@ const UserDashboard = () => {
     fetchDashboard();
   }, []);
 
-
+useEffect(() => {
+  fetchDashboard();
+  fetchResults();
+}, []);
   
 
 
@@ -42,15 +69,12 @@ const UserDashboard = () => {
   const scores = data.scores || [];
 
 
-  // format: 12,45,12,35
-  // const formattedScores = scores.map((s) => s.value).join(", ");
 
 
   return (
     <div className="min-h-screen bg-[#0d110e] text-[#e4e7e5]">
       <main className="max-w-7xl mx-auto p-6 md:p-10">
 
-        {/* HEADER */}
         <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           
           <div>
@@ -75,7 +99,6 @@ const UserDashboard = () => {
           </div>
         </header>
 
-        {/* TOP CARDS */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
 
           {/* Subscription */}
@@ -201,7 +224,6 @@ const UserDashboard = () => {
             </div>
           </div>
 
-          {/* Right Status Card: Subscription Details */}
           <div className="bg-black border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between">
@@ -238,43 +260,122 @@ const UserDashboard = () => {
 
         </section>
 
-      
-        <section>
-          <h3 className="text-base font-bold text-gray-200 mb-4">Recent Activity</h3>
-          
-          <div className="bg-black border border-[#1f2923] rounded-2xl divide-y divide-[#1f2923]">
-            
-            <div className="p-4 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-sm">🎟</div>
-                <div>
-                  <div className="text-sm font-semibold text-gray-200">Weekly Prize Draw Entry</div>
-                  <div className="text-xs text-gray-500 mt-0.5">August 24, 2026 • Ticket #FI-90210</div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-xs font-bold text-emerald-400">Confirmed</div>
-                <div className="text-[10px] text-gray-500 mt-0.5">100 Impact Pts</div>
-              </div>
+<section className="mb-8 w-full">
+
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+
+    <h3 className="text-2xl md:text-3xl font-bold text-white">
+      My Results
+    </h3>
+
+    <span className="text-sm text-gray-500">
+      {results.length} Results
+    </span>
+
+  </div>
+
+  {results.length === 0 ? (
+
+    <div className="bg-black border border-[#1f2923] rounded-2xl p-6 text-center text-gray-500">
+      No results available
+    </div>
+
+  ) : (
+
+    <div className="flex flex-col gap-6 w-full">
+
+      {results.map((r) => (
+
+        <div
+          key={r._id}
+          className="bg-black border border-[#1f2923] rounded-3xl p-4 sm:p-6 w-full overflow-hidden"
+        >
+
+          <div className="flex flex-col xl:flex-row justify-between gap-6 w-full">
+
+            {/* LEFT CONTENT */}
+            <div className="flex-1 min-w-0">
+
+              <h2 className="text-xl sm:text-2xl font-bold text-emerald-400 break-words">
+                {r.rewardType?.toUpperCase()}
+              </h2>
+
+              <p className="text-gray-400 mt-3 text-sm sm:text-base">
+                Matched Numbers:
+                <span className="text-white ml-2">
+                  {r.matchedNumbers}
+                </span>
+              </p>
+
+              <p className="text-yellow-400 font-bold text-lg sm:text-2xl mt-3 break-words">
+                ₹{r.winnings}
+              </p>
+
+              <p className="mt-4 text-sm flex flex-wrap items-center gap-2">
+
+                <span className="text-gray-400">
+                  Verification:
+                </span>
+
+                <span
+                  className={`font-semibold
+                  ${
+                    r.verificationStatus === "approved"
+                      ? "text-emerald-400"
+                      : r.verificationStatus === "rejected"
+                      ? "text-red-400"
+                      : "text-yellow-400"
+                  }`}
+                >
+                  {r.verificationStatus}
+                </span>
+
+              </p>
+
+              <p className="text-xs text-gray-500 mt-3">
+                {new Date(r.createdAt).toLocaleDateString()}
+              </p>
+
             </div>
 
-            <div className="p-4 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-sm">🤝</div>
-                <div>
-                  <div className="text-sm font-semibold text-gray-200">Donation to "{data.charity || "Greener Fairways"}"</div>
-                  <div className="text-xs text-gray-500 mt-0.5">August 22, 2026 • Automatic Monthly Impact</div>
+            {/* IMAGE */}
+            {r.proofImage && (
+
+              <div className="w-full xl:w-auto flex justify-center">
+
+                <div className="bg-[#111] rounded-2xl p-3 border border-gray-800 w-full sm:w-auto">
+
+                  <img
+                    src={`https://givehope-platform-4.onrender.com/uploads/${r.proofImage}`}
+                    alt="proof"
+                    className="
+                      w-full
+                      sm:w-[320px]
+                      md:w-[400px]
+                      lg:w-[500px]
+                      max-h-[420px]
+                      rounded-2xl
+                      object-contain
+                    "
+                  />
+
                 </div>
+
               </div>
-              <div className="text-right">
-                <div className="text-sm font-bold text-gray-200">-₹{data.contribution}</div>
-                <div className="text-[10px] text-gray-500 mt-0.5">TX-8821</div>
-              </div>
-            </div>
+
+            )}
+
           </div>
 
-        
-        </section>
+        </div>
+
+      ))}
+
+    </div>
+
+  )}
+
+</section>
       </main>
     </div>
   );

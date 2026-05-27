@@ -58,7 +58,6 @@ export const getUsers = async (req: Request, res: Response) => {
  
 
    const users = await User.find()
-    // .populate("selectedCharity", "name percentage description")
     .populate("selectedCharity", "name description")
     .select("-password");
 
@@ -94,11 +93,10 @@ export const updateUserSubscription = async (req: Request, res: Response) => {
 export const addCharity = async (req: Request, res: Response) => {
   try {
     const { name, description } = req.body;
-    // const { name, description, percentage } = req.body;
     const charity = await Charity.create({
       name,
       description,
-      // percentage,
+  
     });
 
     res.json({
@@ -145,7 +143,6 @@ export const updateCharity = async (req: Request, res: Response) => {
   }
 };
 
-// ❌ Delete Charity
 export const deleteCharity = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -163,7 +160,6 @@ export const deleteCharity = async (req: Request, res: Response) => {
 };
 
 
-// 📋 Get results
 export const getResults = async (req: Request, res: Response) => {
   try {
     const results = await Result.find();

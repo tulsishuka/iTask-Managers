@@ -9,7 +9,7 @@ const AdminLayout = () => {
     { name: "Scores", path: "/admin/scores" },
     { name: "Draw", path: "/admin/draw" },
     { name: "Charities", path: "/admin/charities" },
-    { name: "Winners", path: "/admin/winners" },
+     { name: "Winner Verification", path: "/admin/winnerverification" },
   ];
 
   return (

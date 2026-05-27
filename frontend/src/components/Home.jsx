@@ -45,12 +45,10 @@ const Home = () => {
     <>
       <div className="min-h-screen bg-[#090F0C] relative overflow-hidden text-white font-sans flex items-center">
         
-        {/* Background Glow */}
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[#123E25] via-[#0B2216] to-transparent opacity-70 blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center max-w-7xl mx-auto px-6 py-20 md:py-32 w-full">
 
-          {/* LEFT SECTION */}
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +57,6 @@ const Home = () => {
             className="flex flex-col items-start gap-5 max-w-xl"
           >
 
-            {/* Badge */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -81,7 +78,6 @@ const Home = () => {
               Live Tournament Rewards
             </motion.div>
 
-            {/* HEADING */}
             <motion.h1
               variants={container}
               initial="hidden"
@@ -107,7 +103,6 @@ const Home = () => {
               </motion.span>
             </motion.h1>
 
-            {/* DESCRIPTION */}
             <motion.p
               initial={{
                 opacity: 0,
@@ -131,7 +126,6 @@ const Home = () => {
               handicap into humanitarian aid.
             </motion.p>
 
-            {/* BUTTONS */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -159,7 +153,6 @@ const Home = () => {
             </motion.div>
           </motion.section>
 
-          {/* RIGHT SECTION */}
           <motion.section
             initial={{
               opacity: 0,
@@ -176,7 +169,6 @@ const Home = () => {
             className="flex justify-center lg:justify-end items-center w-full"
           >
 
-            {/* FLOATING CARD */}
             <motion.div
               animate={{
                 y: [0, -10, 0],
@@ -189,7 +181,6 @@ const Home = () => {
               className="w-full max-w-[520px] bg-[#000000] rounded-2xl p-6 shadow-2xl backdrop-blur-md relative"
             >
 
-              {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex gap-2">
                   <span className="w-3 h-3 rounded-full bg-[#ED6A5E]" />
@@ -202,7 +193,6 @@ const Home = () => {
                 </span>
               </div>
 
-              {/* PROFILE */}
               <motion.div
                 whileHover={{
                   scale: 1.02,
@@ -234,7 +224,6 @@ const Home = () => {
                 </div>
               </motion.div>
 
-              {/* STATS */}
               <div className="grid grid-cols-2 gap-4 mb-6">
 
                 <motion.div
@@ -268,7 +257,6 @@ const Home = () => {
                 </motion.div>
               </div>
 
-              {/* PROGRESS */}
               <motion.div
                 initial={{
                   opacity: 0,

@@ -31,7 +31,6 @@ const Dashboard = () => {
       
       <main className="flex-1 p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
 
-        {/* HEADER */}
         <header className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-8">
 
           <div>
@@ -44,7 +43,6 @@ const Dashboard = () => {
             </p>
           </div>
 
-          {/* LIVE STATUS */}
           <div className="flex items-center gap-3">
 
             <div className="bg-black border border-[#212f26] px-4 py-2 rounded-full flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wide uppercase">
@@ -94,10 +92,8 @@ const Dashboard = () => {
           />
         </section>
 
-        {/* CHART + SYSTEM PANEL */}
         <section className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
 
-          {/* PERFORMANCE */}
           <div className="bg-black border border-[#1f2923] p-6 rounded-2xl xl:col-span-2">
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -118,7 +114,6 @@ const Dashboard = () => {
               </select>
             </div>
 
-            {/* GRAPH */}
             <div className="h-52 flex items-end justify-between gap-2 pt-4">
 
               {[65, 80, 95, 50, 70, 88, 60].map((height, index) => (
@@ -145,7 +140,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* RIGHT PANEL */}
           <div className="bg-black border border-[#1f2923] p-6 rounded-2xl flex flex-col justify-between">
 
             <div>
@@ -188,7 +182,6 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* PROGRESS */}
             <div className="mt-8 pt-5 border-t border-[#1f2923]">
 
               <div className="flex justify-between items-center text-xs mb-2">

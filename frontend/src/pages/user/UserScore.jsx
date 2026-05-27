@@ -12,6 +12,8 @@ import {
 const UserScore = () => {
   const [scores, setScores] = useState([]);
   const [scoreValue, setScoreValue] = useState("");
+const [scoreDate, setScoreDate] = useState("");
+
 
   const token = localStorage.getItem("token");
 
@@ -19,7 +21,7 @@ const UserScore = () => {
 
 const fetchScores = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/score", {
+    const res = await fetch("https://givehope-platform-4.onrender.com/api/score", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -33,45 +35,54 @@ const fetchScores = async () => {
   }
 };
 
+const addScore = async () => {
+  try {
 
-  // ADD SCORE
-  const addScore = async () => {
-    try {
-      if (!scoreValue || scoreValue < 1 || scoreValue > 45) {
-        alert("Score must be between 1 and 45");
-        return;
-      }
-
-      await fetch(
-        "https://givehope-platform-4.onrender.com/api/score/add",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            value: Number(scoreValue),
-          }),
-        }
-      ).then(async (res) => {
-        const data = await res.json();
-
-        if (!res.ok) throw new Error(data.message);
-
-        return data;
-      });
-
-      setScoreValue("");
-
-      fetchScores();
-
-    } catch (error) {
-      alert(error.message || "Something went wrong");
+    if (!scoreValue || scoreValue < 1 || scoreValue > 45) {
+      alert("Score must be between 1 and 45");
+      return;
     }
-  };
 
-  useEffect(() => {
+    if (!scoreDate) {
+      alert("Please select a date");
+      return;
+    }
+
+    await fetch(
+     "https://givehope-platform-4.onrender.com/api/score/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: JSON.stringify({
+          value: Number(scoreValue),
+          date: scoreDate,
+        }),
+      }
+    ).then(async (res) => {
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message);
+
+      return data;
+    });
+
+    // clear fields
+    setScoreValue("");
+    setScoreDate("");
+
+    // refresh scores
+    fetchScores();
+
+  } catch (error) {
+    alert(error.message || "Something went wrong");
+  }
+};
+
+useEffect(() => {
     fetchScores();
   }, []);
 
@@ -111,34 +122,20 @@ const fetchScores = async () => {
 
             </div>
 
-            {/* TOTAL CARD */}
-            <div className="bg-[#0F1512] border border-[#1E2923] rounded-3xl p-6 min-w-[280px] shadow-2xl">
+           
 
-              <div className="flex items-center justify-between mb-5">
+<div>
+  <label className="text-xs uppercase tracking-widest text-gray-500 font-semibold block mb-3">
+    Select Date
+  </label>
 
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-gray-500 font-bold">
-                    Total Entries
-                  </p>
-
-                  <h2 className="text-5xl font-black mt-2 text-[#20E49B]">
-                    {scores.length}
-                  </h2>
-                </div>
-
-                <div className="w-14 h-14 rounded-2xl bg-[#18211C] flex items-center justify-center text-[#20E49B]">
-                  <Trophy size={26} />
-                </div>
-
-              </div>
-
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <Activity size={16} />
-                Active score tracking enabled
-              </div>
-
-            </div>
-
+  <input
+    type="date"
+    value={scoreDate}
+    onChange={(e) => setScoreDate(e.target.value)}
+    className="w-full bg-[#131B17] border border-[#1E2923] rounded-2xl px-5 py-4 text-white outline-none focus:border-[#20E49B] transition-all"
+  />
+</div>
           </div>
 
         </div>
