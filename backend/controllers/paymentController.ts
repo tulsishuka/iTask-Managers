@@ -116,28 +116,52 @@ console.log("Prize pool updated for month:", month, "with amount:", prizeAmount)
     
     }
 
-    await User.findByIdAndUpdate(user._id, {
-      subscriptionStatus: "active",
-      subscriptionPlan: payment.plan,
-      subscriptionStart: new Date(),
-      subscriptionEnd: new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000
-      ),
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+  user._id,
+  {
+    subscriptionStatus: "active",
+    subscriptionPlan: payment.plan,
+    subscriptionStart: new Date(),
+    subscriptionEnd: new Date(
+      Date.now() + 30 * 24 * 60 * 60 * 1000
+    ),
+  },
+  { new: true }
+);
+
+    // await User.findByIdAndUpdate(user._id, {
+    //   subscriptionStatus: "active",
+    //   subscriptionPlan: payment.plan,
+    //   subscriptionStart: new Date(),
+    //   subscriptionEnd: new Date(
+    //     Date.now() + 30 * 24 * 60 * 60 * 1000
+    //   ),
+    // });
 
   
 
 console.log("User subscription updated for user:", user._id, "plan:", payment.plan);
+    // return res.json({
+    //   success: true,
+    //   message: "Payment successful",
+    //   breakdown: {
+    //     charityAmount,
+    //     prizeAmount,
+    //     systemAmount,
+    //   },
+    // });
+
     return res.json({
-      success: true,
-      message: "Payment successful",
-      breakdown: {
-        charityAmount,
-        prizeAmount,
-        systemAmount,
-      },
-    });
-console.log("Payment verification completed for order:", razorpay_order_id);
+  success: true,
+  message: "Payment successful",
+  user: updatedUser,
+  breakdown: {
+    charityAmount,
+    prizeAmount,
+    systemAmount,
+  },
+});
+
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }
